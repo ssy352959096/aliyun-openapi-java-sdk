@@ -9,9 +9,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 
-
 public class HttpClientConfig {
 
+    public static final long DEFAULT_CONNECTION_TIMEOUT = 5000;
+
+    public static final long DEFAULT_READ_TIMEOUT = 10000;
     /**
      * client type
      */
@@ -28,8 +30,8 @@ public class HttpClientConfig {
     /**
      * timeout
      **/
-    private long connectionTimeoutMillis = 15000L;
-    private long readTimeoutMillis = 15000L;
+    private long connectionTimeoutMillis = DEFAULT_CONNECTION_TIMEOUT;
+    private long readTimeoutMillis = DEFAULT_READ_TIMEOUT;
     private long writeTimeoutMillis = 15000L;
 
     /**
@@ -41,11 +43,13 @@ public class HttpClientConfig {
      * https
      **/
     private boolean ignoreSSLCerts = false;
+    @Deprecated
     private SSLSocketFactory sslSocketFactory = null;
     private KeyManager[] keyManagers = null;
     private X509TrustManager[] x509TrustManagers = null;
     private SecureRandom secureRandom = null;
     private HostnameVerifier hostnameVerifier = null;
+    @Deprecated
     private String certPath = null;
 
     /**
@@ -56,6 +60,15 @@ public class HttpClientConfig {
     private Runnable idleCallback = null;
     private ExecutorService executorService = null;
 
+
+    /**
+     * proxy configurations
+     */
+
+    private String httpProxy = null;
+    private String httpsProxy = null;
+    private String noProxy = null;
+
     /**
      * extra params
      */
@@ -65,7 +78,7 @@ public class HttpClientConfig {
 
     public static HttpClientConfig getDefault() {
         HttpClientConfig config = new HttpClientConfig();
-        config.setClientType(HttpClientType.Compatible);
+        config.setClientType(HttpClientType.ApacheHttpClient);
         return config;
     }
 
@@ -77,10 +90,16 @@ public class HttpClientConfig {
         this.clientType = clientType;
     }
 
+
+    @Deprecated
     public String getCertPath() {
         return certPath;
     }
 
+    /**
+     * use HttpClientConfig.setX509TrustManagers() and HttpClientConfig.setKeyManagers() instead
+     */
+    @Deprecated
     public void setCertPath(String certPath) {
         this.certPath = certPath;
     }
@@ -133,10 +152,15 @@ public class HttpClientConfig {
         this.writeTimeoutMillis = writeTimeoutMillis;
     }
 
+    @Deprecated
     public SSLSocketFactory getSslSocketFactory() {
-        return sslSocketFactory;
+        return this.sslSocketFactory;
     }
 
+    /**
+     * use HttpClientConfig.setX509TrustManagers() and HttpClientConfig.setKeyManagers() instead
+     */
+    @Deprecated
     public void setSslSocketFactory(SSLSocketFactory sslSocketFactory) {
         this.sslSocketFactory = sslSocketFactory;
     }
@@ -255,5 +279,29 @@ public class HttpClientConfig {
 
     public void setProtocolType(ProtocolType protocolType) {
         this.protocolType = protocolType;
+    }
+
+    public String getHttpProxy() {
+        return httpProxy;
+    }
+
+    public void setHttpProxy(String httpProxy) {
+        this.httpProxy = httpProxy;
+    }
+
+    public String getHttpsProxy() {
+        return httpsProxy;
+    }
+
+    public void setHttpsProxy(String httpsProxy) {
+        this.httpsProxy = httpsProxy;
+    }
+
+    public String getNoProxy() {
+        return noProxy;
+    }
+
+    public void setNoProxy(String noProxy) {
+        this.noProxy = noProxy;
     }
 }

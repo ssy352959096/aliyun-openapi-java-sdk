@@ -20,7 +20,6 @@ import java.util.List;
 import com.aliyuncs.ecs.model.v20140526.DescribeSnapshotsResponse;
 import com.aliyuncs.ecs.model.v20140526.DescribeSnapshotsResponse.Snapshot;
 import com.aliyuncs.ecs.model.v20140526.DescribeSnapshotsResponse.Snapshot.Tag;
-import java.util.Map;
 import com.aliyuncs.transform.UnmarshallerContext;
 
 
@@ -52,6 +51,7 @@ public class DescribeSnapshotsResponseUnmarshaller {
 			snapshot.setSourceStorageType(context.stringValue("DescribeSnapshotsResponse.Snapshots["+ i +"].SourceStorageType"));
 			snapshot.setRemainTime(context.integerValue("DescribeSnapshotsResponse.Snapshots["+ i +"].RemainTime"));
 			snapshot.setResourceGroupId(context.stringValue("DescribeSnapshotsResponse.Snapshots["+ i +"].ResourceGroupId"));
+			snapshot.setKMSKeyId(context.stringValue("DescribeSnapshotsResponse.Snapshots["+ i +"].KMSKeyId"));
 
 			List<Tag> tags = new ArrayList<Tag>();
 			for (int j = 0; j < context.lengthValue("DescribeSnapshotsResponse.Snapshots["+ i +"].Tags.Length"); j++) {

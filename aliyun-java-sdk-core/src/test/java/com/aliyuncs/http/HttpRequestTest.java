@@ -18,6 +18,10 @@ public class HttpRequestTest {
         HttpRequest httpRequest = new HttpRequest("test", map);
         Assert.assertEquals("test", httpRequest.getSysUrl());
         Assert.assertEquals("test", httpRequest.getHeaderValue("test"));
+
+        httpRequest = new HttpRequest("test", null);
+        Assert.assertEquals("test", httpRequest.getSysUrl());
+        Assert.assertNotNull(request.getSysHeaders());
     }
 
     @Test
@@ -41,24 +45,31 @@ public class HttpRequestTest {
     @Test
     public void getHttpContentStringTest() throws ClientException, UnsupportedEncodingException {
         HttpRequest request = new HttpRequest("test");
-        request.setHttpContent("测试".getBytes(), null, null);
+        request.setHttpContent("test".getBytes(), null, null);
         String content = request.getHttpContentString();
-        Assert.assertEquals("测试", content);
+        Assert.assertEquals("test", content);
 
         request = new HttpRequest("test");
-        request.setHttpContent("测试".getBytes("UTF-8"), "UTF-8", null);
+        request.setHttpContent("test".getBytes("UTF-8"), "UTF-8", null);
         content = request.getHttpContentString();
-        Assert.assertEquals("测试", content);
+        Assert.assertEquals("test", content);
 
         try {
             request = new HttpRequest("test");
             request.setHttpContent(new byte[]{-1}, "hgbkjhkjh", null);
-            content = request.getHttpContentString();
+            request.getHttpContentString();
             Assert.fail();
         } catch (ClientException e) {
             Assert.assertEquals("SDK.UnsupportedEncoding", e.getErrCode());
             Assert.assertEquals("Can not parse response due to unsupported encoding.", e.getErrMsg());
         }
 
+    }
+
+    @Test
+    public void toStringTest() {
+        HttpRequest request = new HttpRequest("testURL");
+        String res = request.toString();
+        Assert.assertTrue(res.contains("testURL"));
     }
 }

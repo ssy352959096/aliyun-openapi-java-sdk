@@ -14,7 +14,6 @@
 
 package com.aliyuncs.iot.model.v20180120;
 
-import java.util.Map;
 import com.aliyuncs.AcsResponse;
 import com.aliyuncs.iot.transform.v20180120.QueryProductResponseUnmarshaller;
 import com.aliyuncs.transform.UnmarshallerContext;
@@ -106,6 +105,8 @@ public class QueryProductResponse extends AcsResponse {
 		private String productStatus;
 
 		private Boolean owner;
+
+		private Integer netType;
 
 		public Long getGmtCreate() {
 			return this.gmtCreate;
@@ -225,6 +226,14 @@ public class QueryProductResponse extends AcsResponse {
 
 		public void setOwner(Boolean owner) {
 			this.owner = owner;
+		}
+
+		public Integer getNetType() {
+			return this.netType;
+		}
+
+		public void setNetType(Integer netType) {
+			this.netType = netType;
 		}
 	}
 

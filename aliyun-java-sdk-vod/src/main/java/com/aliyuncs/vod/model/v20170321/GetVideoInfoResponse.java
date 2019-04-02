@@ -15,7 +15,6 @@
 package com.aliyuncs.vod.model.v20170321;
 
 import java.util.List;
-import java.util.Map;
 import com.aliyuncs.AcsResponse;
 import com.aliyuncs.vod.transform.v20170321.GetVideoInfoResponseUnmarshaller;
 import com.aliyuncs.transform.UnmarshallerContext;
@@ -95,6 +94,8 @@ public class GetVideoInfoResponse extends AcsResponse {
 		private String storageLocation;
 
 		private String regionId;
+
+		private String customMediaInfo;
 
 		private List<Thumbnail> thumbnailList;
 
@@ -244,12 +245,36 @@ public class GetVideoInfoResponse extends AcsResponse {
 			this.storageLocation = storageLocation;
 		}
 
+		public String getBizRegionId() {
+			return this.regionId;
+		}
+
+		public void setBizRegionId(String regionId) {
+			this.regionId = regionId;
+		}
+
+		/**
+		 * @deprecated use getBizRegionId instead of this.
+		 */
+		@Deprecated
 		public String getRegionId() {
 			return this.regionId;
 		}
 
+		/**
+		 * @deprecated use setBizRegionId instead of this.
+		 */
+		@Deprecated
 		public void setRegionId(String regionId) {
 			this.regionId = regionId;
+		}
+
+		public String getCustomMediaInfo() {
+			return this.customMediaInfo;
+		}
+
+		public void setCustomMediaInfo(String customMediaInfo) {
+			this.customMediaInfo = customMediaInfo;
 		}
 
 		public List<Thumbnail> getThumbnailList() {

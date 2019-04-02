@@ -23,10 +23,12 @@ import com.aliyuncs.RpcAcsRequest;
 public class QueryPageByApplyIdRequest extends RpcAcsRequest<QueryPageByApplyIdResponse> {
 	
 	public QueryPageByApplyIdRequest() {
-		super("Iot", "2018-01-20", "QueryPageByApplyId");
+		super("Iot", "2018-01-20", "QueryPageByApplyId", "iot");
 	}
 
 	private Long applyId;
+
+	private String iotInstanceId;
 
 	private Integer pageSize;
 
@@ -40,6 +42,17 @@ public class QueryPageByApplyIdRequest extends RpcAcsRequest<QueryPageByApplyIdR
 		this.applyId = applyId;
 		if(applyId != null){
 			putQueryParameter("ApplyId", applyId.toString());
+		}
+	}
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
 		}
 	}
 

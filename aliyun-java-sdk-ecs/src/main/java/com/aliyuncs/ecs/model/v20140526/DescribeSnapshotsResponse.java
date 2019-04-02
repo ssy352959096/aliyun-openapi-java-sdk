@@ -15,7 +15,6 @@
 package com.aliyuncs.ecs.model.v20140526;
 
 import java.util.List;
-import java.util.Map;
 import com.aliyuncs.AcsResponse;
 import com.aliyuncs.ecs.transform.v20140526.DescribeSnapshotsResponseUnmarshaller;
 import com.aliyuncs.transform.UnmarshallerContext;
@@ -109,6 +108,8 @@ public class DescribeSnapshotsResponse extends AcsResponse {
 		private Integer remainTime;
 
 		private String resourceGroupId;
+
+		private String kMSKeyId;
 
 		private List<Tag> tags;
 
@@ -238,6 +239,14 @@ public class DescribeSnapshotsResponse extends AcsResponse {
 
 		public void setResourceGroupId(String resourceGroupId) {
 			this.resourceGroupId = resourceGroupId;
+		}
+
+		public String getKMSKeyId() {
+			return this.kMSKeyId;
+		}
+
+		public void setKMSKeyId(String kMSKeyId) {
+			this.kMSKeyId = kMSKeyId;
 		}
 
 		public List<Tag> getTags() {

@@ -23,10 +23,23 @@ import com.aliyuncs.RpcAcsRequest;
 public class DeleteRuleActionRequest extends RpcAcsRequest<DeleteRuleActionResponse> {
 	
 	public DeleteRuleActionRequest() {
-		super("Iot", "2018-01-20", "DeleteRuleAction");
+		super("Iot", "2018-01-20", "DeleteRuleAction", "iot");
 	}
 
+	private String iotInstanceId;
+
 	private Long actionId;
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
+		}
+	}
 
 	public Long getActionId() {
 		return this.actionId;

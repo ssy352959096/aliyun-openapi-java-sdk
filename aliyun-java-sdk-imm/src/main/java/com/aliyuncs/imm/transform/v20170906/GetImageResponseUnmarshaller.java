@@ -24,10 +24,10 @@ import com.aliyuncs.imm.model.v20170906.GetImageResponse.FacesItem;
 import com.aliyuncs.imm.model.v20170906.GetImageResponse.FacesItem.EmotionDetails;
 import com.aliyuncs.imm.model.v20170906.GetImageResponse.FacesItem.FaceAttributes;
 import com.aliyuncs.imm.model.v20170906.GetImageResponse.FacesItem.FaceAttributes.FaceBoundary;
+import com.aliyuncs.imm.model.v20170906.GetImageResponse.FacesItem.FaceAttributes.HeadPose;
 import com.aliyuncs.imm.model.v20170906.GetImageResponse.OCRItem;
 import com.aliyuncs.imm.model.v20170906.GetImageResponse.OCRItem.OCRBoundary;
 import com.aliyuncs.imm.model.v20170906.GetImageResponse.TagsItem;
-import java.util.Map;
 import com.aliyuncs.transform.UnmarshallerContext;
 
 
@@ -65,6 +65,9 @@ public class GetImageResponseUnmarshaller {
 		getImageResponse.setCelebrityModifyTime(context.stringValue("GetImageResponse.CelebrityModifyTime"));
 		getImageResponse.setCelebrityFailReason(context.stringValue("GetImageResponse.CelebrityFailReason"));
 		getImageResponse.setTagsStatus(context.stringValue("GetImageResponse.TagsStatus"));
+		getImageResponse.setRemarksC(context.stringValue("GetImageResponse.RemarksC"));
+		getImageResponse.setRemarksD(context.stringValue("GetImageResponse.RemarksD"));
+		getImageResponse.setExternalId(context.stringValue("GetImageResponse.ExternalId"));
 
 		List<FacesItem> faces = new ArrayList<FacesItem>();
 		for (int i = 0; i < context.lengthValue("GetImageResponse.Faces.Length"); i++) {
@@ -76,6 +79,8 @@ public class GetImageResponseUnmarshaller {
 			facesItem.setEmotion(context.stringValue("GetImageResponse.Faces["+ i +"].Emotion"));
 			facesItem.setAttractive(context.floatValue("GetImageResponse.Faces["+ i +"].Attractive"));
 			facesItem.setGenderConfidence(context.floatValue("GetImageResponse.Faces["+ i +"].GenderConfidence"));
+			facesItem.setGroupId(context.stringValue("GetImageResponse.Faces["+ i +"].GroupId"));
+			facesItem.setFaceQuality(context.floatValue("GetImageResponse.Faces["+ i +"].FaceQuality"));
 
 			FaceAttributes faceAttributes = new FaceAttributes();
 			faceAttributes.setGlasses(context.stringValue("GetImageResponse.Faces["+ i +"].FaceAttributes.Glasses"));
@@ -93,6 +98,12 @@ public class GetImageResponseUnmarshaller {
 			faceBoundary.setWidth(context.integerValue("GetImageResponse.Faces["+ i +"].FaceAttributes.FaceBoundary.Width"));
 			faceBoundary.setHeight(context.integerValue("GetImageResponse.Faces["+ i +"].FaceAttributes.FaceBoundary.Height"));
 			faceAttributes.setFaceBoundary(faceBoundary);
+
+			HeadPose headPose = new HeadPose();
+			headPose.setPitch(context.floatValue("GetImageResponse.Faces["+ i +"].FaceAttributes.HeadPose.Pitch"));
+			headPose.setRoll(context.floatValue("GetImageResponse.Faces["+ i +"].FaceAttributes.HeadPose.Roll"));
+			headPose.setYaw(context.floatValue("GetImageResponse.Faces["+ i +"].FaceAttributes.HeadPose.Yaw"));
+			faceAttributes.setHeadPose(headPose);
 			facesItem.setFaceAttributes(faceAttributes);
 
 			EmotionDetails emotionDetails = new EmotionDetails();

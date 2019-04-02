@@ -24,7 +24,7 @@ import java.util.List;
 public class QueryDevicePropertiesDataRequest extends RpcAcsRequest<QueryDevicePropertiesDataResponse> {
 	
 	public QueryDevicePropertiesDataRequest() {
-		super("Iot", "2018-01-20", "QueryDevicePropertiesData");
+		super("Iot", "2018-01-20", "QueryDevicePropertiesData", "iot");
 	}
 
 	private Integer asc;
@@ -32,6 +32,8 @@ public class QueryDevicePropertiesDataRequest extends RpcAcsRequest<QueryDeviceP
 	private List<String> identifiers;
 
 	private String iotId;
+
+	private String iotInstanceId;
 
 	private Integer pageSize;
 
@@ -75,6 +77,17 @@ public class QueryDevicePropertiesDataRequest extends RpcAcsRequest<QueryDeviceP
 		this.iotId = iotId;
 		if(iotId != null){
 			putQueryParameter("IotId", iotId);
+		}
+	}
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
 		}
 	}
 

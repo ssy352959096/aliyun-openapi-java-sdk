@@ -15,7 +15,6 @@
 package com.aliyuncs.edas.model.v20170801;
 
 import java.util.List;
-import java.util.Map;
 import com.aliyuncs.AcsResponse;
 import com.aliyuncs.edas.transform.v20170801.ListConfigCentersResponseUnmarshaller;
 import com.aliyuncs.transform.UnmarshallerContext;
@@ -74,6 +73,8 @@ public class ListConfigCentersResponse extends AcsResponse {
 
 		private String id;
 
+		private String appName;
+
 		public String getDataId() {
 			return this.dataId;
 		}
@@ -96,6 +97,14 @@ public class ListConfigCentersResponse extends AcsResponse {
 
 		public void setId(String id) {
 			this.id = id;
+		}
+
+		public String getAppName() {
+			return this.appName;
+		}
+
+		public void setAppName(String appName) {
+			this.appName = appName;
 		}
 	}
 

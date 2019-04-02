@@ -23,12 +23,25 @@ import com.aliyuncs.RpcAcsRequest;
 public class BatchRegisterDeviceRequest extends RpcAcsRequest<BatchRegisterDeviceResponse> {
 	
 	public BatchRegisterDeviceRequest() {
-		super("Iot", "2018-01-20", "BatchRegisterDevice");
+		super("Iot", "2018-01-20", "BatchRegisterDevice", "iot");
 	}
+
+	private String iotInstanceId;
 
 	private Integer count;
 
 	private String productKey;
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
+		}
+	}
 
 	public Integer getCount() {
 		return this.count;

@@ -23,10 +23,23 @@ import com.aliyuncs.RpcAcsRequest;
 public class StartRuleRequest extends RpcAcsRequest<StartRuleResponse> {
 	
 	public StartRuleRequest() {
-		super("Iot", "2018-01-20", "StartRule");
+		super("Iot", "2018-01-20", "StartRule", "iot");
 	}
 
+	private String iotInstanceId;
+
 	private Long ruleId;
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
+		}
+	}
 
 	public Long getRuleId() {
 		return this.ruleId;

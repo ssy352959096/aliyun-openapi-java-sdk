@@ -19,12 +19,6 @@ public abstract class RpcAcsRequest<T extends AcsResponse> extends AcsRequest<T>
         initialize();
     }
 
-    public RpcAcsRequest(String product, String version) {
-        super(product);
-        this.setSysVersion(version);
-        initialize();
-    }
-
     public RpcAcsRequest(String product, String version, String action) {
         super(product);
         this.setSysVersion(version);
@@ -51,7 +45,7 @@ public abstract class RpcAcsRequest<T extends AcsResponse> extends AcsRequest<T>
 
     private void initialize() {
         this.setSysMethod(MethodType.GET);
-        this.setAcceptFormat(FormatType.XML);
+        this.setSysAcceptFormat(FormatType.JSON);
         this.setHttpContentType(FormatType.FORM);
         this.composer = RpcSignatureComposer.getComposer();
     }
@@ -166,7 +160,7 @@ public abstract class RpcAcsRequest<T extends AcsResponse> extends AcsRequest<T>
             imutableMap.put("Signature", signature);
             this.strToSign = strToSign;
         }
-        setSysUrl(this.composeUrl(domain.getDomianName(), imutableMap));
+        setSysUrl(this.composeUrl(domain.getDomainName(), imutableMap));
         return this;
     }
 }

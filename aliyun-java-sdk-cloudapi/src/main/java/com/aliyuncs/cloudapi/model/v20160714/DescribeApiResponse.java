@@ -46,6 +46,10 @@ public class DescribeApiResponse extends AcsResponse {
 
     private String                    authType;
 
+    private Boolean                   forceNonceCheck;
+
+    private Boolean                   disableInternet;
+
     private String                    resultType;
 
     private String                    resultSample;
@@ -59,6 +63,10 @@ public class DescribeApiResponse extends AcsResponse {
     private String                    description;
     
     private String                    allowSignatureMethod;
+
+    private String                    resultBodyModel;
+
+    private String                    webSocketApiType;
 
     private List<SystemParameter>     systemParameters;
 
@@ -164,6 +172,22 @@ public class DescribeApiResponse extends AcsResponse {
 
     public String getCreatedTime() {
         return this.createdTime;
+    }
+
+    public Boolean getForceNonceCheck() {
+        return forceNonceCheck;
+    }
+
+    public void setForceNonceCheck(Boolean forceNonceCheck) {
+        this.forceNonceCheck = forceNonceCheck;
+    }
+
+    public Boolean getDisableInternet() {
+        return disableInternet;
+    }
+
+    public void setDisableInternet(Boolean disableInternet) {
+        this.disableInternet = disableInternet;
     }
 
     public void setCreatedTime(String createdTime) {
@@ -288,6 +312,22 @@ public class DescribeApiResponse extends AcsResponse {
 
     public void setAllowSignatureMethod(String allowSignatureMethod) {
         this.allowSignatureMethod = allowSignatureMethod;
+    }
+
+    public String getResultBodyModel() {
+        return resultBodyModel;
+    }
+
+    public void setResultBodyModel(String resultBodyModel) {
+        this.resultBodyModel = resultBodyModel;
+    }
+
+    public String getWebSocketApiType() {
+        return webSocketApiType;
+    }
+
+    public void setWebSocketApiType(String webSocketApiType) {
+        this.webSocketApiType = webSocketApiType;
     }
 
     public static class SystemParameter {
@@ -646,6 +686,8 @@ public class DescribeApiResponse extends AcsResponse {
 
         private String description;
 
+        private String model;
+
         public String getCode() {
             return this.code;
         }
@@ -669,6 +711,14 @@ public class DescribeApiResponse extends AcsResponse {
         public void setDescription(String description) {
             this.description = description;
         }
+
+        public String getModel() {
+            return model;
+        }
+
+        public void setModel(String model) {
+            this.model = model;
+        }
     }
 
     public static class RequestConfig {
@@ -684,6 +734,8 @@ public class DescribeApiResponse extends AcsResponse {
         private String postBodyDescription;
 
         private String requestMode;
+
+        private String bodyModel;
 
         public String getRequestProtocol() {
             return this.requestProtocol;
@@ -732,6 +784,14 @@ public class DescribeApiResponse extends AcsResponse {
         public void setRequestMode(String requestMode) {
             this.requestMode = requestMode;
         }
+
+        public String getBodyModel() {
+            return bodyModel;
+        }
+
+        public void setBodyModel(String bodyModel) {
+            this.bodyModel = bodyModel;
+        }
     }
 
     public static class ServiceConfig {
@@ -750,9 +810,15 @@ public class DescribeApiResponse extends AcsResponse {
 
         private String    mockResult;
 
+        private Integer   mockStatusCode;
+
+        private List<MockHeader> mockHeaders;
+
         private Boolean   serviceVpcEnable = false;
 
         private VpcConfig vpcConfig;
+
+        private FunctionComputeConfig functionComputeConfig;
 
         /**
          * 用户定义给后端的ContentType的类型：
@@ -864,6 +930,51 @@ public class DescribeApiResponse extends AcsResponse {
         public void setAoneAppName(String aoneAppName) {
             this.aoneAppName = aoneAppName;
         }
+
+        public Integer getMockStatusCode() {
+            return mockStatusCode;
+        }
+
+        public void setMockStatusCode(Integer mockStatusCode) {
+            this.mockStatusCode = mockStatusCode;
+        }
+
+        public List<MockHeader> getMockHeaders() {
+            return mockHeaders;
+        }
+
+        public void setMockHeaders(List<MockHeader> mockHeaders) {
+            this.mockHeaders = mockHeaders;
+        }
+
+        public FunctionComputeConfig getFunctionComputeConfig() {
+            return functionComputeConfig;
+        }
+
+        public void setFunctionComputeConfig(FunctionComputeConfig functionComputeConfig) {
+            this.functionComputeConfig = functionComputeConfig;
+        }
+    }
+
+    public static class MockHeader{
+        private String headerName;
+        private String headerValue;
+
+        public String getHeaderName() {
+            return headerName;
+        }
+
+        public void setHeaderName(String headerName) {
+            this.headerName = headerName;
+        }
+
+        public String getHeaderValue() {
+            return headerValue;
+        }
+
+        public void setHeaderValue(String headerValue) {
+            this.headerValue = headerValue;
+        }
     }
 
     public static class OpenIdConnectConfig {
@@ -916,6 +1027,8 @@ public class DescribeApiResponse extends AcsResponse {
 
         private Integer port;
 
+        private String  name;
+
         public String getVpcId() {
             return vpcId;
         }
@@ -940,6 +1053,53 @@ public class DescribeApiResponse extends AcsResponse {
             this.port = port;
         }
 
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+    }
+
+    public static class FunctionComputeConfig {
+
+        private String fcRegionId;
+        private String serviceName;
+        private String functionName;
+        private String roleArn;
+
+        public String getFcRegionId() {
+            return fcRegionId;
+        }
+
+        public void setFcRegionId(String fcRegionId) {
+            this.fcRegionId = fcRegionId;
+        }
+
+        public String getServiceName() {
+            return serviceName;
+        }
+
+        public void setServiceName(String serviceName) {
+            this.serviceName = serviceName;
+        }
+
+        public String getFunctionName() {
+            return functionName;
+        }
+
+        public void setFunctionName(String functionName) {
+            this.functionName = functionName;
+        }
+
+        public String getRoleArn() {
+            return roleArn;
+        }
+
+        public void setRoleArn(String roleArn) {
+            this.roleArn = roleArn;
+        }
     }
 
     @Override

@@ -23,14 +23,40 @@ import com.aliyuncs.RpcAcsRequest;
 public class DeleteDevicePropRequest extends RpcAcsRequest<DeleteDevicePropResponse> {
 	
 	public DeleteDevicePropRequest() {
-		super("Iot", "2018-01-20", "DeleteDeviceProp");
+		super("Iot", "2018-01-20", "DeleteDeviceProp", "iot");
 	}
+
+	private String iotId;
+
+	private String iotInstanceId;
 
 	private String deviceName;
 
 	private String productKey;
 
 	private String propKey;
+
+	public String getIotId() {
+		return this.iotId;
+	}
+
+	public void setIotId(String iotId) {
+		this.iotId = iotId;
+		if(iotId != null){
+			putQueryParameter("IotId", iotId);
+		}
+	}
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
+		}
+	}
 
 	public String getDeviceName() {
 		return this.deviceName;

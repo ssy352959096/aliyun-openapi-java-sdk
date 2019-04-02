@@ -2,12 +2,16 @@ package com.aliyuncs.http;
 
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.utils.ParameterHelper;
+import lombok.ToString;
 
+import javax.net.ssl.KeyManager;
+import javax.net.ssl.X509TrustManager;
 import java.io.UnsupportedEncodingException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+@ToString
 public abstract class HttpMessage {
 
     protected static final String CONTENT_TYPE = "Content-Type";
@@ -21,6 +25,33 @@ public abstract class HttpMessage {
     protected Integer readTimeout = null;
     private String url = null;
     private MethodType method = null;
+    protected boolean ignoreSSLCerts = false;
+    private KeyManager[] keyManagers = null;
+    private X509TrustManager[] x509TrustManagers = null;
+
+    public KeyManager[] getKeyManagers() {
+        return keyManagers;
+    }
+
+    public void setKeyManagers(KeyManager[] keyManagers) {
+        this.keyManagers = keyManagers;
+    }
+
+    public X509TrustManager[] getX509TrustManagers() {
+        return x509TrustManagers;
+    }
+
+    public void setX509TrustManagers(X509TrustManager[] x509TrustManagers) {
+        this.x509TrustManagers = x509TrustManagers;
+    }
+
+    public boolean isIgnoreSSLCerts() {
+        return ignoreSSLCerts;
+    }
+
+    public void setIgnoreSSLCerts(boolean ignoreSSLCerts) {
+        this.ignoreSSLCerts = ignoreSSLCerts;
+    }
 
     public HttpMessage(String strUrl) {
         this.url = strUrl;
@@ -29,21 +60,33 @@ public abstract class HttpMessage {
     public HttpMessage() {
     }
 
+    /**
+     * @Deprecated : Use getSysUrl instead of this
+     */
     @Deprecated
     public String getUrl() {
         return url;
     }
 
+    /**
+     * @Deprecated : Use setSysUrl instead of this
+     */
     @Deprecated
     protected void setUrl(String url) {
         this.url = url;
     }
 
+    /**
+     * @Deprecated : Use getSysMethod instead of this
+     */
     @Deprecated
     public MethodType getMethod() {
         return method;
     }
 
+    /**
+     * @Deprecated : Use setSysMethod instead of this
+     */
     @Deprecated
     public void setMethod(MethodType method) {
         this.method = method;
@@ -80,19 +123,34 @@ public abstract class HttpMessage {
             this.encoding = null;
             return;
         }
+
+        // for GET HEADER DELETE OPTION method, sdk should ignore the content
+        if (getSysMethod() != null && !getSysMethod().hasContent()) {
+            content = new byte[0];
+        }
+
         this.httpContent = content;
         this.encoding = encoding;
         String contentLen = String.valueOf(content.length);
         String strMd5 = ParameterHelper.md5Sum(content);
         this.headers.put(CONTENT_MD5, strMd5);
         this.headers.put(CONTENT_LENGTH, contentLen);
+        if (null != format) {
+            this.headers.put(CONTENT_TYPE, FormatType.mapFormatToAccept(format));
+        }
     }
 
+    /**
+     * @Deprecated : Use getSysEncoding instead of this
+     */
     @Deprecated
     public String getEncoding() {
         return encoding;
     }
 
+    /**
+     * @Deprecated : Use setSysEncoding instead of this
+     */
     @Deprecated
     public void setEncoding(String encoding) {
         this.encoding = encoding;
@@ -108,26 +166,41 @@ public abstract class HttpMessage {
         return this.headers.get(name);
     }
 
+    /**
+     * @Deprecated : Use getSysConnectTimeout instead of this
+     */
     @Deprecated
     public Integer getConnectTimeout() {
         return connectTimeout;
     }
 
+    /**
+     * @Deprecated : Use setSysConnectTimeout instead of this
+     */
     @Deprecated
     public void setConnectTimeout(Integer connectTimeout) {
         this.connectTimeout = connectTimeout;
     }
 
+    /**
+     * @Deprecated : Use getSysReadTimeout instead of this
+     */
     @Deprecated
     public Integer getReadTimeout() {
         return readTimeout;
     }
 
+    /**
+     * @Deprecated : Use setSysReadTimeout instead of this
+     */
     @Deprecated
     public void setReadTimeout(Integer readTimeout) {
         this.readTimeout = readTimeout;
     }
 
+    /**
+     * @Deprecated : Use getSysHeaders instead of this
+     */
     @Deprecated
     public Map<String, String> getHeaders() {
         return Collections.unmodifiableMap(headers);

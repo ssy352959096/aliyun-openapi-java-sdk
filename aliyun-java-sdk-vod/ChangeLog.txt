@@ -1,3 +1,28 @@
+2019-02-28 Version: 2.15.1
+1, Add new apis named ListTranscodeTask, GetTranscodeTask, GetTranscodeSummary.
+2, Add the new field named TranscodeTemplateIds and ForceDelGroup to DeleteTranscodeTemplateGroup api request, and add a new field named NonExistTranscodeTemplateIds to the api response.
+3, Add a new field named Rotate in VideoStream of Mezzanine struct to GetMezzanineInfo api response .
+4, Add a new field named Status in ImageInfo to GetImageInfo api response.
+5, Add a new field named CustomMediaInfo to UpdateVideoInfo, GetVideoInfo and SearchMedia api to support the custom mediaInfo feature.
+6, Add a new filed named PlayInfoList and some Audit fields to SearchMedia api response.
+7, Clean up an api named DeleteTranscodeTemplates, which is replaced with the api named DeleteTranscodeTemplateGroup.
+
+2019-01-30 Version: 2.15.0
+1, Add a new api called GetURLUploadInfos to query the upload task of UploadMediaByURL.
+2, Clean up the old api related to the CDN of VoD that is going offline, such as DescribeDomainBpsData, is replaced with the new CDN api.
+3, Clean up the old AI related apis of VoD, such as SubmitAIASRJob, is replaced with the new AI api.
+4, Clean up an api called GetVideoPlayInfo, which is used by the old player SDKs that are no longer supported.
+5, Clean up some apis that used only by the VoD console to avoid misuse, such as OpenVodService.
+
+2019-01-15 Version: 2.12.0
+1, Add new apis called AddTranscodeTemplateGroup, UpdateTranscodeTemplateGroup, ListTranscodeTemplateGroup, GetTranscodeTemplateGroup, SetDefaultTranscodeTemplateGroup ,DeleteTranscodeTemplateGroup and DeleteTranscodeTemplates which support transcode template feature.
+2, Add new apis called AddAITemplate, DeleteAITemplate, UpdateAITemplate, GetAITemplate, ListAITemplate, GetDefaultAITemplate and SetDefaultAITemplate which support AI template feature.
+3, Add new apis called SubmitAIMediaAuditJob, GetAIMediaAuditJob, GetMediaAuditResult, GetMediaAuditResultTimeline which support AIMediaAudit feature.
+4, Add the field named Priority to SubmitTranscodeJobs api request.
+5, Add the field named UserData to UploadMediaByURL api request.
+6, Add the field named UserData to CreateUploadImage api request.
+7, Add the field named UserData to CreateUploadAttachedMedia api request.
+
 2018-12-16 Version: 2.11.9
 1, Add a new api called AddMediaSequences to add media sequences of vod videos with in/out or live streams with start time/end time.
 

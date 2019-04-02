@@ -48,6 +48,8 @@ public class CreateOfficeConversionTaskRequest extends RpcAcsRequest<CreateOffic
 
 	private String modelId;
 
+	private Integer displayDpi;
+
 	private Long maxSheetRow;
 
 	private Long maxSheetCount;
@@ -61,6 +63,8 @@ public class CreateOfficeConversionTaskRequest extends RpcAcsRequest<CreateOffic
 	private Long maxSheetCol;
 
 	private String tgtType;
+
+	private Boolean hidecomments;
 
 	private Boolean fitToPagesTall;
 
@@ -191,6 +195,17 @@ public class CreateOfficeConversionTaskRequest extends RpcAcsRequest<CreateOffic
 		}
 	}
 
+	public Integer getDisplayDpi() {
+		return this.displayDpi;
+	}
+
+	public void setDisplayDpi(Integer displayDpi) {
+		this.displayDpi = displayDpi;
+		if(displayDpi != null){
+			putQueryParameter("DisplayDpi", displayDpi.toString());
+		}
+	}
+
 	public Long getMaxSheetRow() {
 		return this.maxSheetRow;
 	}
@@ -265,6 +280,17 @@ public class CreateOfficeConversionTaskRequest extends RpcAcsRequest<CreateOffic
 		this.tgtType = tgtType;
 		if(tgtType != null){
 			putQueryParameter("TgtType", tgtType);
+		}
+	}
+
+	public Boolean getHidecomments() {
+		return this.hidecomments;
+	}
+
+	public void setHidecomments(Boolean hidecomments) {
+		this.hidecomments = hidecomments;
+		if(hidecomments != null){
+			putQueryParameter("Hidecomments", hidecomments.toString());
 		}
 	}
 

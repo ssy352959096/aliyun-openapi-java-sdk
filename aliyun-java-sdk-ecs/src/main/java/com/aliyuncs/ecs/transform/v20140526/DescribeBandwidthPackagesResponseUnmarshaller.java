@@ -20,7 +20,6 @@ import java.util.List;
 import com.aliyuncs.ecs.model.v20140526.DescribeBandwidthPackagesResponse;
 import com.aliyuncs.ecs.model.v20140526.DescribeBandwidthPackagesResponse.BandwidthPackage;
 import com.aliyuncs.ecs.model.v20140526.DescribeBandwidthPackagesResponse.BandwidthPackage.PublicIpAddresse;
-import java.util.Map;
 import com.aliyuncs.transform.UnmarshallerContext;
 
 
@@ -47,6 +46,7 @@ public class DescribeBandwidthPackagesResponseUnmarshaller {
 			bandwidthPackage.setInternetChargeType(context.stringValue("DescribeBandwidthPackagesResponse.BandwidthPackages["+ i +"].InternetChargeType"));
 			bandwidthPackage.setBusinessStatus(context.stringValue("DescribeBandwidthPackagesResponse.BandwidthPackages["+ i +"].BusinessStatus"));
 			bandwidthPackage.setIpCount(context.stringValue("DescribeBandwidthPackagesResponse.BandwidthPackages["+ i +"].IpCount"));
+			bandwidthPackage.setISP(context.stringValue("DescribeBandwidthPackagesResponse.BandwidthPackages["+ i +"].ISP"));
 			bandwidthPackage.setCreationTime(context.stringValue("DescribeBandwidthPackagesResponse.BandwidthPackages["+ i +"].CreationTime"));
 			bandwidthPackage.setStatus(context.stringValue("DescribeBandwidthPackagesResponse.BandwidthPackages["+ i +"].Status"));
 

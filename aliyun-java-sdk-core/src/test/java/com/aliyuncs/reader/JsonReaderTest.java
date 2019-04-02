@@ -1,27 +1,13 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
 package com.aliyuncs.reader;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.text.StringCharacterIterator;
 import java.util.Map;
 
 public class JsonReaderTest {
@@ -51,6 +37,183 @@ public class JsonReaderTest {
             + "\"RequestId\":\"A11D2D03-8DE3-43E6-B362-625DEBF3F88F\"}";
     Map<String, String> map = null;
 
+    @Test
+    public void readTest() {
+        String json = "{{\"test\":\"test\"}";
+        Map<String, String> map;
+        JsonReader reader = new JsonReader();
+        map = reader.read(new StringCharacterIterator(json), "test", 1);
+        Assert.assertEquals("test", map.get("test.test"));
+
+        map.clear();
+        reader = new JsonReader();
+        map = reader.read(new StringCharacterIterator(json), "test", 2);
+        Assert.assertEquals("test", map.get("test.test"));
+
+        map.clear();
+        reader = new JsonReader();
+        map = reader.read(new StringCharacterIterator(json), "test", 10);
+        Assert.assertEquals("{}", map.toString());
+    }
+
+    @Test
+    public void readJsonTest() throws NoSuchMethodException, NoSuchFieldException,
+            IllegalAccessException, InvocationTargetException {
+        JsonReader reader = new JsonReader();
+        Class clazz = reader.getClass();
+        Method readJson = clazz.getDeclaredMethod("readJson", String.class);
+        Field c = clazz.getDeclaredField("c");
+        Field ct = clazz.getDeclaredField("ct");
+        readJson.setAccessible(true);
+        c.setAccessible(true);
+        ct.setAccessible(true);
+        ct.set(reader, new StringCharacterIterator("tttte"));
+        c.set(reader, 't');
+        Object object = readJson.invoke(reader, "");
+        Object charValue = c.get(reader);
+        Assert.assertEquals("true", String.valueOf(object));
+        Assert.assertEquals('e', charValue);
+
+        c.set(reader, 'n');
+        ct.set(reader, new StringCharacterIterator("ttttn"));
+        object = readJson.invoke(reader, "");
+        charValue = c.get(reader);
+        Assert.assertNull(object);
+        Assert.assertEquals('n', charValue);
+
+        c.set(reader, 'f');
+        ct.set(reader, new StringCharacterIterator("ttttff"));
+        object = readJson.invoke(reader, "");
+        charValue = c.get(reader);
+        Assert.assertEquals("false", String.valueOf(object));
+        Assert.assertEquals('f', charValue);
+
+        c.set(reader, '+');
+        ct.set(reader, new StringCharacterIterator("-tttf"));
+        object = readJson.invoke(reader, "");
+        charValue = c.get(reader);
+        Assert.assertEquals("-", String.valueOf(object));
+        Assert.assertEquals('t', charValue);
+    }
+
+    @Test
+    public void trimFromLastTest() {
+        String str = JsonReader.trimFromLast("abc", "c");
+        Assert.assertEquals("ab", str);
+
+        str = JsonReader.trimFromLast("abc", "h");
+        Assert.assertEquals("abc", str);
+    }
+
+    @Test
+    public void readForHideArrayItemTest() {
+        String json = "{\"RequestId\":\"A11D2D03-8DE3-43E6-B362-625DEBF3F88F\",\"tArray\":" +
+                "{\"tTest\":[\"tTest\":\"tTest\",\"gTest\":[[\"g\":\"g\"]]]}}";
+        JsonReader reader = new JsonReader();
+        Map<String, String> map;
+        map = reader.readForHideArrayItem(json, "test");
+        Assert.assertEquals("g", map.get("test.tArray.tTest[0][0]"));
+        Assert.assertEquals("g", map.get("test.tArray.tTest[0][1]"));
+        Assert.assertEquals("3", map.get("test.tArray.tTest[0].Length"));
+        Assert.assertEquals("tTest", map.get("test.tArray.tTest[0]"));
+        Assert.assertEquals("5", map.get("test.tArray.tTest.Length"));
+        Assert.assertEquals("tTest", map.get("test.tArray.tTest[1]"));
+        Assert.assertEquals("tTest", map.get("test.tArray.tTest[2]"));
+        Assert.assertEquals("gTest", map.get("test.tArray.tTest[3]"));
+        Assert.assertEquals("gTest", map.get("test.tArray.tTest[4]"));
+        Assert.assertEquals("g", map.get("test.tArray.tTest[0][2]"));
+        Assert.assertEquals("A11D2D03-8DE3-43E6-B362-625DEBF3F88F", map.get("test.RequestId"));
+    }
+
+    @Test
+    public void readForHideItemTest() {
+        String json = "{{\"RequestId\":\"A11D2D03-8DE3-43E6-B362-625DEBF3F88F\",\"tArray\":" +
+                "{\"tTest\":[\"tTest\":\"tTest\",\"gTest\":[[\"g\":\"g\"]]]}}";
+        JsonReader reader = new JsonReader();
+        Map<String, String> map;
+        map = reader.readForHideItem(new StringCharacterIterator(json), "test", 1);
+        Assert.assertEquals("g", map.get("test.tArray.tTest[0][0]"));
+        Assert.assertEquals("g", map.get("test.tArray.tTest[0][1]"));
+        Assert.assertEquals("3", map.get("test.tArray.tTest[0].Length"));
+        Assert.assertEquals("tTest", map.get("test.tArray.tTest[0]"));
+        Assert.assertEquals("5", map.get("test.tArray.tTest.Length"));
+        Assert.assertEquals("tTest", map.get("test.tArray.tTest[1]"));
+        Assert.assertEquals("tTest", map.get("test.tArray.tTest[2]"));
+        Assert.assertEquals("gTest", map.get("test.tArray.tTest[3]"));
+        Assert.assertEquals("gTest", map.get("test.tArray.tTest[4]"));
+        Assert.assertEquals("g", map.get("test.tArray.tTest[0][2]"));
+        Assert.assertEquals("A11D2D03-8DE3-43E6-B362-625DEBF3F88F", map.get("test.RequestId"));
+
+        json = "{{{\"RequestId\":\"A11D2D03-8DE3-43E6-B362-625DEBF3F88F\",\"tArray\":" +
+                "{\"tTest\":[\"tTest\":\"tTest\",\"gTest\":[[\"g\":\"g\"]]]}}";
+        map = reader.readForHideItem(new StringCharacterIterator(json), "test", 2);
+        Assert.assertEquals("g", map.get("test.tArray.tTest[0][0]"));
+        Assert.assertEquals("g", map.get("test.tArray.tTest[0][1]"));
+        Assert.assertEquals("3", map.get("test.tArray.tTest[0].Length"));
+        Assert.assertEquals("tTest", map.get("test.tArray.tTest[0]"));
+        Assert.assertEquals("5", map.get("test.tArray.tTest.Length"));
+        Assert.assertEquals("tTest", map.get("test.tArray.tTest[1]"));
+        Assert.assertEquals("tTest", map.get("test.tArray.tTest[2]"));
+        Assert.assertEquals("gTest", map.get("test.tArray.tTest[3]"));
+        Assert.assertEquals("gTest", map.get("test.tArray.tTest[4]"));
+        Assert.assertEquals("g", map.get("test.tArray.tTest[0][2]"));
+        Assert.assertEquals("A11D2D03-8DE3-43E6-B362-625DEBF3F88F", map.get("test.RequestId"));
+
+        json = "{\"tTest\":\"test\"}";
+        reader = new JsonReader();
+        map.clear();
+        map = reader.readForHideItem(new StringCharacterIterator(json), "test", 3);
+        Assert.assertNull(map.get("test"));
+    }
+
+    @Test
+    public void readJsonForHideItemTest() throws NoSuchMethodException, NoSuchFieldException,
+            InvocationTargetException, IllegalAccessException {
+        JsonReader reader = new JsonReader();
+        Class clazz = reader.getClass();
+        Method readJsonForHideItem = clazz.getDeclaredMethod("readJsonForHideItem", String.class);
+        Field c = clazz.getDeclaredField("c");
+        Field ct = clazz.getDeclaredField("ct");
+        readJsonForHideItem.setAccessible(true);
+        c.setAccessible(true);
+        ct.setAccessible(true);
+        ct.set(reader, new StringCharacterIterator("tttte"));
+        c.set(reader, 't');
+        Object object = readJsonForHideItem.invoke(reader, "");
+        Object charValue = c.get(reader);
+        Assert.assertEquals("true", String.valueOf(object));
+        Assert.assertEquals('e', charValue);
+
+        c.set(reader, 'n');
+        ct.set(reader, new StringCharacterIterator("ttttn"));
+        object = readJsonForHideItem.invoke(reader, "");
+        charValue = c.get(reader);
+        Assert.assertNull(object);
+        Assert.assertEquals('n', charValue);
+
+        c.set(reader, 'f');
+        ct.set(reader, new StringCharacterIterator("ttttff"));
+        object = readJsonForHideItem.invoke(reader, "");
+        charValue = c.get(reader);
+        Assert.assertEquals("false", String.valueOf(object));
+        Assert.assertEquals('f', charValue);
+
+        c.set(reader, '+');
+        ct.set(reader, new StringCharacterIterator("-tttf"));
+        object = readJsonForHideItem.invoke(reader, "");
+        charValue = c.get(reader);
+        Assert.assertEquals("-", String.valueOf(object));
+        Assert.assertEquals('t', charValue);
+
+        c.set(reader, '+');
+        ct.set(reader, new StringCharacterIterator("8tttf"));
+        object = readJsonForHideItem.invoke(reader, "");
+        charValue = c.get(reader);
+        Assert.assertEquals("8", String.valueOf(object));
+        Assert.assertEquals('t', charValue);
+    }
+
+
     @Before
     public void init() {
         JsonReader jsonReader = new JsonReader();
@@ -74,7 +237,8 @@ public class JsonReaderTest {
         Assert.assertTrue(
                 map.get("DescribeInstancesResponse.RequestId").equals("A11D2D03-8DE3-43E6-B362-625DEBF3F88F"));
         Assert.assertTrue(
-                map.get("DescribeInstancesResponse.Instances[0].ImageId").equals("centos7u0_64_20G_aliaegis_20141117.vhd"));
+                map.get("DescribeInstancesResponse.Instances[0].ImageId")
+                        .equals("centos7u0_64_20G_aliaegis_20141117.vhd"));
         Assert.assertTrue(
                 map.get("DescribeInstancesResponse.Instances[0].Description").equals("test escape \"Timeout\""));
     }
@@ -92,8 +256,51 @@ public class JsonReaderTest {
 
     @Test
     public void test() {
-        Assert.assertEquals("JsonReaderTest", JsonReaderTest.class.getName().substring(JsonReaderTest.class.getName().lastIndexOf(".") + 1));
+        Assert.assertEquals("JsonReaderTest", JsonReaderTest.class.getName().substring(
+                JsonReaderTest.class.getName().lastIndexOf(".") + 1));
 
+    }
+
+    @Test
+    public void skipWhiteSpaceTest() throws NoSuchMethodException, InvocationTargetException,
+            IllegalAccessException, NoSuchFieldException {
+        JsonReader reader = new JsonReader();
+        Class readerClass = reader.getClass();
+        Field c = readerClass.getDeclaredField("c");
+        Field ct = readerClass.getDeclaredField("ct");
+        ct.setAccessible(true);
+        c.setAccessible(true);
+        c.set(reader, ' ');
+        ct.set(reader, new StringCharacterIterator("test"));
+        Method skipWhiteSpace = readerClass.getDeclaredMethod("skipWhiteSpace");
+        skipWhiteSpace.setAccessible(true);
+        skipWhiteSpace.invoke(reader);
+        Assert.assertEquals("e", c.get(reader).toString());
+    }
+
+    @Test
+    public void processNumberTest() throws NoSuchMethodException, NoSuchFieldException,
+            IllegalAccessException, InvocationTargetException {
+        JsonReader reader = new JsonReader();
+        Class readerClass = reader.getClass();
+        Method processNumber = readerClass.getDeclaredMethod("processNumber");
+        Field stringBuffer = readerClass.getDeclaredField("stringBuffer");
+        Field c = readerClass.getDeclaredField("c");
+        Field ct = readerClass.getDeclaredField("ct");
+        processNumber.setAccessible(true);
+        stringBuffer.setAccessible(true);
+        c.setAccessible(true);
+        ct.setAccessible(true);
+        stringBuffer.set(reader, new StringBuffer());
+        c.set(reader, '-');
+        ct.set(reader, new StringCharacterIterator("-.E+"));
+        Object result = processNumber.invoke(reader);
+        Assert.assertEquals("-.E+", result);
+
+        ct.set(reader, new StringCharacterIterator("e-"));
+        c.set(reader, 'e');
+        result = processNumber.invoke(reader);
+        Assert.assertEquals("e-", result);
     }
 
 }

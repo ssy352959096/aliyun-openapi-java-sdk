@@ -24,7 +24,7 @@ import com.aliyuncs.http.MethodType;
 public class InsertConfigCenterRequest extends RoaAcsRequest<InsertConfigCenterResponse> {
 	
 	public InsertConfigCenterRequest() {
-		super("Edas", "2017-08-01", "InsertConfigCenter", "edas");
+		super("Edas", "2017-08-01", "InsertConfigCenter");
 		setUriPattern("/pop/v5/configCenter");
 		setMethod(MethodType.POST);
 	}
@@ -32,6 +32,8 @@ public class InsertConfigCenterRequest extends RoaAcsRequest<InsertConfigCenterR
 	private String dataId;
 
 	private String data;
+
+	private String appName;
 
 	private String logicalRegionId;
 
@@ -56,6 +58,17 @@ public class InsertConfigCenterRequest extends RoaAcsRequest<InsertConfigCenterR
 		this.data = data;
 		if(data != null){
 			putQueryParameter("Data", data);
+		}
+	}
+
+	public String getAppName() {
+		return this.appName;
+	}
+
+	public void setAppName(String appName) {
+		this.appName = appName;
+		if(appName != null){
+			putQueryParameter("AppName", appName);
 		}
 	}
 

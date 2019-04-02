@@ -19,7 +19,6 @@ import java.util.List;
 
 import com.aliyuncs.iot.model.v20180120.QueryDeviceResponse;
 import com.aliyuncs.iot.model.v20180120.QueryDeviceResponse.DeviceInfo;
-import java.util.Map;
 import com.aliyuncs.transform.UnmarshallerContext;
 
 
@@ -47,6 +46,9 @@ public class QueryDeviceResponseUnmarshaller {
 			deviceInfo.setDeviceType(context.stringValue("QueryDeviceResponse.Data["+ i +"].DeviceType"));
 			deviceInfo.setGmtCreate(context.stringValue("QueryDeviceResponse.Data["+ i +"].GmtCreate"));
 			deviceInfo.setGmtModified(context.stringValue("QueryDeviceResponse.Data["+ i +"].GmtModified"));
+			deviceInfo.setUtcCreate(context.stringValue("QueryDeviceResponse.Data["+ i +"].UtcCreate"));
+			deviceInfo.setUtcModified(context.stringValue("QueryDeviceResponse.Data["+ i +"].UtcModified"));
+			deviceInfo.setIotId(context.stringValue("QueryDeviceResponse.Data["+ i +"].IotId"));
 
 			data.add(deviceInfo);
 		}

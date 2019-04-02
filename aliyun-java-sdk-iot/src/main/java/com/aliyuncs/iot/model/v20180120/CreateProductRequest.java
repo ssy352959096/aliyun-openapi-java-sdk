@@ -23,7 +23,7 @@ import com.aliyuncs.RpcAcsRequest;
 public class CreateProductRequest extends RpcAcsRequest<CreateProductResponse> {
 	
 	public CreateProductRequest() {
-		super("Iot", "2018-01-20", "CreateProduct");
+		super("Iot", "2018-01-20", "CreateProduct", "iot");
 	}
 
 	private Integer dataFormat;
@@ -31,6 +31,8 @@ public class CreateProductRequest extends RpcAcsRequest<CreateProductResponse> {
 	private Integer nodeType;
 
 	private Boolean id2;
+
+	private String iotInstanceId;
 
 	private String netType;
 
@@ -41,6 +43,8 @@ public class CreateProductRequest extends RpcAcsRequest<CreateProductResponse> {
 	private String protocolType;
 
 	private String aliyunCommodityCode;
+
+	private String joinPermissionId;
 
 	private Long categoryId;
 
@@ -74,6 +78,17 @@ public class CreateProductRequest extends RpcAcsRequest<CreateProductResponse> {
 		this.id2 = id2;
 		if(id2 != null){
 			putQueryParameter("Id2", id2.toString());
+		}
+	}
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
 		}
 	}
 
@@ -129,6 +144,17 @@ public class CreateProductRequest extends RpcAcsRequest<CreateProductResponse> {
 		this.aliyunCommodityCode = aliyunCommodityCode;
 		if(aliyunCommodityCode != null){
 			putQueryParameter("AliyunCommodityCode", aliyunCommodityCode);
+		}
+	}
+
+	public String getJoinPermissionId() {
+		return this.joinPermissionId;
+	}
+
+	public void setJoinPermissionId(String joinPermissionId) {
+		this.joinPermissionId = joinPermissionId;
+		if(joinPermissionId != null){
+			putQueryParameter("JoinPermissionId", joinPermissionId);
 		}
 	}
 

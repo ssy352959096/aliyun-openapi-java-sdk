@@ -23,10 +23,12 @@ import com.aliyuncs.RpcAcsRequest;
 public class QueryDeviceDetailRequest extends RpcAcsRequest<QueryDeviceDetailResponse> {
 	
 	public QueryDeviceDetailRequest() {
-		super("Iot", "2018-01-20", "QueryDeviceDetail");
+		super("Iot", "2018-01-20", "QueryDeviceDetail", "iot");
 	}
 
 	private String iotId;
+
+	private String iotInstanceId;
 
 	private String deviceName;
 
@@ -40,6 +42,17 @@ public class QueryDeviceDetailRequest extends RpcAcsRequest<QueryDeviceDetailRes
 		this.iotId = iotId;
 		if(iotId != null){
 			putQueryParameter("IotId", iotId);
+		}
+	}
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
 		}
 	}
 

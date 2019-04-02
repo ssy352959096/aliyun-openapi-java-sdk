@@ -23,7 +23,7 @@ import com.aliyuncs.RpcAcsRequest;
 public class InvokeThingServiceRequest extends RpcAcsRequest<InvokeThingServiceResponse> {
 	
 	public InvokeThingServiceRequest() {
-		super("Iot", "2018-01-20", "InvokeThingService");
+		super("Iot", "2018-01-20", "InvokeThingService", "iot");
 	}
 
 	private String args;
@@ -31,6 +31,8 @@ public class InvokeThingServiceRequest extends RpcAcsRequest<InvokeThingServiceR
 	private String identifier;
 
 	private String iotId;
+
+	private String iotInstanceId;
 
 	private String deviceName;
 
@@ -66,6 +68,17 @@ public class InvokeThingServiceRequest extends RpcAcsRequest<InvokeThingServiceR
 		this.iotId = iotId;
 		if(iotId != null){
 			putQueryParameter("IotId", iotId);
+		}
+	}
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
 		}
 	}
 

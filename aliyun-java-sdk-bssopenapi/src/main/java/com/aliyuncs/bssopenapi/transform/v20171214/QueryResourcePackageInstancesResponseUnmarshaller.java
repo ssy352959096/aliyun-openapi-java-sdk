@@ -20,7 +20,6 @@ import java.util.List;
 import com.aliyuncs.bssopenapi.model.v20171214.QueryResourcePackageInstancesResponse;
 import com.aliyuncs.bssopenapi.model.v20171214.QueryResourcePackageInstancesResponse.Data;
 import com.aliyuncs.bssopenapi.model.v20171214.QueryResourcePackageInstancesResponse.Data.Instance;
-import java.util.Map;
 import com.aliyuncs.transform.UnmarshallerContext;
 
 
@@ -54,6 +53,15 @@ public class QueryResourcePackageInstancesResponseUnmarshaller {
 			instance.setEffectiveTime(context.stringValue("QueryResourcePackageInstancesResponse.Data.Instances["+ i +"].EffectiveTime"));
 			instance.setExpiryTime(context.stringValue("QueryResourcePackageInstancesResponse.Data.Instances["+ i +"].ExpiryTime"));
 			instance.setRemark(context.stringValue("QueryResourcePackageInstancesResponse.Data.Instances["+ i +"].Remark"));
+			instance.setPackageType(context.stringValue("QueryResourcePackageInstancesResponse.Data.Instances["+ i +"].PackageType"));
+			instance.setStatus(context.stringValue("QueryResourcePackageInstancesResponse.Data.Instances["+ i +"].Status"));
+			instance.setDeductType(context.stringValue("QueryResourcePackageInstancesResponse.Data.Instances["+ i +"].DeductType"));
+
+			List<String> applicableProducts = new ArrayList<String>();
+			for (int j = 0; j < context.lengthValue("QueryResourcePackageInstancesResponse.Data.Instances["+ i +"].ApplicableProducts.Length"); j++) {
+				applicableProducts.add(context.stringValue("QueryResourcePackageInstancesResponse.Data.Instances["+ i +"].ApplicableProducts["+ j +"]"));
+			}
+			instance.setApplicableProducts(applicableProducts);
 
 			instances.add(instance);
 		}

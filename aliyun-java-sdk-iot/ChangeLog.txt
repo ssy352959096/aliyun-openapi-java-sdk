@@ -1,3 +1,24 @@
+2019-03-08 Version: 6.7.0
+1, add API QueryDeviceDesiredProperty and SetDeviceDesiredProperty.
+2, add iotId support of APIs.
+
+
+2019-02-20 Version: 6.6.2
+1, fix aliyun-net-sdk-iot service code issue.
+
+2019-02-14 Version: 6.6.1
+1, fix SDK.InvalidRegionId exception in aliyun-net-sdk-core.
+
+2019-01-15 Version: 6.6.0
+1, add API of product tags.
+2, add API QueryDeviceGroupByTags.
+3, update response data of API BatchCheckDeviceNames.
+
+2019-01-15 Version: 6.6.0
+1, add API of product tags.
+2, add API QueryDeviceGroupByTags.
+3, update response data of API BatchCheckDeviceNames.
+
 2018-12-09 Version: 6.5.0
 1, Add Open API QuerySuperDeviceGroup.
 2, Add Open API QueryDeviceProperties.

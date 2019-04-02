@@ -15,7 +15,6 @@
 package com.aliyuncs.ecs.model.v20140526;
 
 import java.util.List;
-import java.util.Map;
 import com.aliyuncs.AcsResponse;
 import com.aliyuncs.ecs.transform.v20140526.DescribeDeploymentSetsResponseUnmarshaller;
 import com.aliyuncs.transform.UnmarshallerContext;
@@ -46,10 +45,26 @@ public class DescribeDeploymentSetsResponse extends AcsResponse {
 		this.requestId = requestId;
 	}
 
+	public String getBizRegionId() {
+		return this.regionId;
+	}
+
+	public void setBizRegionId(String regionId) {
+		this.regionId = regionId;
+	}
+
+	/**
+	 * @deprecated use getBizRegionId instead of this.
+	 */
+	@Deprecated
 	public String getRegionId() {
 		return this.regionId;
 	}
 
+	/**
+	 * @deprecated use setBizRegionId instead of this.
+	 */
+	@Deprecated
 	public void setRegionId(String regionId) {
 		this.regionId = regionId;
 	}
@@ -148,10 +163,26 @@ public class DescribeDeploymentSetsResponse extends AcsResponse {
 			this.deploymentStrategy = deploymentStrategy;
 		}
 
+		public String getBizDomain() {
+			return this.domain;
+		}
+
+		public void setBizDomain(String domain) {
+			this.domain = domain;
+		}
+
+		/**
+		 * @deprecated use getBizDomain instead of this.
+		 */
+		@Deprecated
 		public String getDomain() {
 			return this.domain;
 		}
 
+		/**
+		 * @deprecated use setBizDomain instead of this.
+		 */
+		@Deprecated
 		public void setDomain(String domain) {
 			this.domain = domain;
 		}

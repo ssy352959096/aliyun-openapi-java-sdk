@@ -23,7 +23,7 @@ import com.aliyuncs.RpcAcsRequest;
 public class QueryDeviceEventDataRequest extends RpcAcsRequest<QueryDeviceEventDataResponse> {
 	
 	public QueryDeviceEventDataRequest() {
-		super("Iot", "2018-01-20", "QueryDeviceEventData");
+		super("Iot", "2018-01-20", "QueryDeviceEventData", "iot");
 	}
 
 	private Integer asc;
@@ -31,6 +31,8 @@ public class QueryDeviceEventDataRequest extends RpcAcsRequest<QueryDeviceEventD
 	private String identifier;
 
 	private String iotId;
+
+	private String iotInstanceId;
 
 	private Integer pageSize;
 
@@ -74,6 +76,17 @@ public class QueryDeviceEventDataRequest extends RpcAcsRequest<QueryDeviceEventD
 		this.iotId = iotId;
 		if(iotId != null){
 			putQueryParameter("IotId", iotId);
+		}
+	}
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
 		}
 	}
 

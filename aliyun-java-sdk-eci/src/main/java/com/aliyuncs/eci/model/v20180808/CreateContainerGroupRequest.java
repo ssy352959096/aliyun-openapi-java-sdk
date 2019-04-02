@@ -19,7 +19,7 @@ import java.util.List;
 
 /**
  * @author liumi
- * @version 1.0.3
+ * @version 1.0.5
  */
 public class CreateContainerGroupRequest extends RpcAcsRequest<CreateContainerGroupResponse> {
 	
@@ -58,6 +58,10 @@ public class CreateContainerGroupRequest extends RpcAcsRequest<CreateContainerGr
 	private String zoneId;
 
 	private DnsConfig dnsConfig;
+
+	private List<HostAliase> hostAliases;
+
+	private String clientToken;
 
 	public List<Container> getContainers() {
 		return this.containers;
@@ -411,6 +415,35 @@ public class CreateContainerGroupRequest extends RpcAcsRequest<CreateContainerGr
 		}
 	}
 
+	public String getClientToken() {
+		return this.clientToken;
+	}
+
+	public void setClientToken(String clientToken) {
+		this.clientToken = clientToken;
+		if(clientToken != null){
+			putQueryParameter("ClientToken", clientToken);
+		}
+	}
+
+	public List<HostAliase> getHostAliases() {
+		return this.hostAliases;
+	}
+
+	public void setHostAliases(List<HostAliase> hostAliases) {
+		this.hostAliases = hostAliases;
+		if (hostAliases != null) {
+			for (int depth1 = 0; depth1 < hostAliases.size(); depth1++) {
+				putQueryParameter("HostAliase." + (depth1 + 1) + ".Ip" , hostAliases.get(depth1).getIp());
+				if (hostAliases.get(depth1).getHostnames() != null) {
+					for (int i = 0; i < hostAliases.get(depth1).getHostnames().size(); i++) {
+						putQueryParameter("HostAliase." + (depth1 + 1) + ".Hostname." + (i + 1) , hostAliases.get(depth1).getHostnames().get(i));
+					}
+				}
+			}
+		}
+	}
+
 	public static class Container {
 
 		private String image;
@@ -561,6 +594,8 @@ public class CreateContainerGroupRequest extends RpcAcsRequest<CreateContainerGr
 
 			private String name;
 
+			private String subPath;
+
 			public String getMountPath() {
 				return this.mountPath;
 			}
@@ -584,6 +619,15 @@ public class CreateContainerGroupRequest extends RpcAcsRequest<CreateContainerGr
 			public void setName(String name) {
 				this.name = name;
 			}
+
+			public String getSubPath() {
+				return subPath;
+			}
+
+			public void setSubPath(String subPath) {
+				this.subPath = subPath;
+			}
+
 		}
 
 		public static class Port {
@@ -987,6 +1031,29 @@ public class CreateContainerGroupRequest extends RpcAcsRequest<CreateContainerGr
 			public void setValue(String value) {
 				this.value = value;
 			}
+		}
+	}
+
+	public static class HostAliase {
+
+		private String ip;
+
+		private List<String> hostnames;
+
+		public String getIp() {
+			return this.ip;
+		}
+
+		public void setIp(String ip) {
+			this.ip = ip;
+		}
+
+		public List<String> getHostnames() {
+			return this.hostnames;
+		}
+
+		public void setHostnames(List<String> hostnames) {
+			this.hostnames = hostnames;
 		}
 	}
 

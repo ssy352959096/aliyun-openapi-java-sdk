@@ -23,10 +23,23 @@ import com.aliyuncs.RpcAcsRequest;
 public class DeleteProductRequest extends RpcAcsRequest<DeleteProductResponse> {
 	
 	public DeleteProductRequest() {
-		super("Iot", "2018-01-20", "DeleteProduct");
+		super("Iot", "2018-01-20", "DeleteProduct", "iot");
 	}
 
+	private String iotInstanceId;
+
 	private String productKey;
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
+		}
+	}
 
 	public String getProductKey() {
 		return this.productKey;

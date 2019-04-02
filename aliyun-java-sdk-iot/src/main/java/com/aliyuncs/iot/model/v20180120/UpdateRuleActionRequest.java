@@ -23,10 +23,12 @@ import com.aliyuncs.RpcAcsRequest;
 public class UpdateRuleActionRequest extends RpcAcsRequest<UpdateRuleActionResponse> {
 	
 	public UpdateRuleActionRequest() {
-		super("Iot", "2018-01-20", "UpdateRuleAction");
+		super("Iot", "2018-01-20", "UpdateRuleAction", "iot");
 	}
 
 	private String configuration;
+
+	private String iotInstanceId;
 
 	private Long actionId;
 
@@ -40,6 +42,17 @@ public class UpdateRuleActionRequest extends RpcAcsRequest<UpdateRuleActionRespo
 		this.configuration = configuration;
 		if(configuration != null){
 			putQueryParameter("Configuration", configuration);
+		}
+	}
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
 		}
 	}
 

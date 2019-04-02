@@ -11,6 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.aliyuncs.oms.model.v20150212;
 
 import com.aliyuncs.RpcAcsRequest;
@@ -22,21 +23,14 @@ import com.aliyuncs.RpcAcsRequest;
 public class GetProductDefineRequest extends RpcAcsRequest<GetProductDefineResponse> {
 	
 	public GetProductDefineRequest() {
-		super("Oms", "2015-02-12", "GetProductDefine");
+		super("Oms", "2015-02-12", "GetProductDefine", "oms");
 	}
-
-	private String productName;
 
 	private String dataType;
 
-	public String getProductName() {
-		return this.productName;
-	}
+	private String productName;
 
-	public void setProductName(String productName) {
-		this.productName = productName;
-		putQueryParameter("ProductName", productName);
-	}
+	private String siteBid;
 
 	public String getDataType() {
 		return this.dataType;
@@ -44,7 +38,31 @@ public class GetProductDefineRequest extends RpcAcsRequest<GetProductDefineRespo
 
 	public void setDataType(String dataType) {
 		this.dataType = dataType;
-		putQueryParameter("DataType", dataType);
+		if(dataType != null){
+			putQueryParameter("DataType", dataType);
+		}
+	}
+
+	public String getProductName() {
+		return this.productName;
+	}
+
+	public void setProductName(String productName) {
+		this.productName = productName;
+		if(productName != null){
+			putQueryParameter("ProductName", productName);
+		}
+	}
+
+	public String getSiteBid() {
+		return this.siteBid;
+	}
+
+	public void setSiteBid(String siteBid) {
+		this.siteBid = siteBid;
+		if(siteBid != null){
+			putQueryParameter("siteBid", siteBid);
+		}
 	}
 
 	@Override

@@ -19,7 +19,6 @@ import java.util.List;
 
 import com.aliyuncs.edas.model.v20170801.ListConfigCentersResponse;
 import com.aliyuncs.edas.model.v20170801.ListConfigCentersResponse.ListConfigCenters;
-import java.util.Map;
 import com.aliyuncs.transform.UnmarshallerContext;
 
 
@@ -37,6 +36,7 @@ public class ListConfigCentersResponseUnmarshaller {
 			listConfigCenters.setDataId(context.stringValue("ListConfigCentersResponse.ConfigCentersList["+ i +"].DataId"));
 			listConfigCenters.setGroup(context.stringValue("ListConfigCentersResponse.ConfigCentersList["+ i +"].Group"));
 			listConfigCenters.setId(context.stringValue("ListConfigCentersResponse.ConfigCentersList["+ i +"].Id"));
+			listConfigCenters.setAppName(context.stringValue("ListConfigCentersResponse.ConfigCentersList["+ i +"].AppName"));
 
 			configCentersList.add(listConfigCenters);
 		}

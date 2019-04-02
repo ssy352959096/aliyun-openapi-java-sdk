@@ -23,7 +23,7 @@ import com.aliyuncs.RpcAcsRequest;
 public class CreateRuleRequest extends RpcAcsRequest<CreateRuleResponse> {
 	
 	public CreateRuleRequest() {
-		super("Iot", "2018-01-20", "CreateRule");
+		super("Iot", "2018-01-20", "CreateRule", "iot");
 	}
 
 	private String select;
@@ -31,6 +31,8 @@ public class CreateRuleRequest extends RpcAcsRequest<CreateRuleResponse> {
 	private String ruleDesc;
 
 	private String dataType;
+
+	private String iotInstanceId;
 
 	private String name;
 
@@ -72,6 +74,17 @@ public class CreateRuleRequest extends RpcAcsRequest<CreateRuleResponse> {
 		this.dataType = dataType;
 		if(dataType != null){
 			putQueryParameter("DataType", dataType);
+		}
+	}
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
 		}
 	}
 

@@ -14,6 +14,9 @@
 
 package com.aliyuncs.iot.transform.v20180120;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.aliyuncs.iot.model.v20180120.BatchCheckDeviceNamesResponse;
 import com.aliyuncs.iot.model.v20180120.BatchCheckDeviceNamesResponse.Data;
 import com.aliyuncs.transform.UnmarshallerContext;
@@ -30,6 +33,12 @@ public class BatchCheckDeviceNamesResponseUnmarshaller {
 
 		Data data = new Data();
 		data.setApplyId(context.longValue("BatchCheckDeviceNamesResponse.Data.ApplyId"));
+
+		List<String> invalidDeviceNameList = new ArrayList<String>();
+		for (int i = 0; i < context.lengthValue("BatchCheckDeviceNamesResponse.Data.InvalidDeviceNameList.Length"); i++) {
+			invalidDeviceNameList.add(context.stringValue("BatchCheckDeviceNamesResponse.Data.InvalidDeviceNameList["+ i +"]"));
+		}
+		data.setInvalidDeviceNameList(invalidDeviceNameList);
 		batchCheckDeviceNamesResponse.setData(data);
 	 
 	 	return batchCheckDeviceNamesResponse;

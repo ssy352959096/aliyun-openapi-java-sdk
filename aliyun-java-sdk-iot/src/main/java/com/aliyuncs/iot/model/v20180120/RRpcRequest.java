@@ -23,8 +23,10 @@ import com.aliyuncs.RpcAcsRequest;
 public class RRpcRequest extends RpcAcsRequest<RRpcResponse> {
 	
 	public RRpcRequest() {
-		super("Iot", "2018-01-20", "RRpc");
+		super("Iot", "2018-01-20", "RRpc", "iot");
 	}
+
+	private String iotInstanceId;
 
 	private String requestBase64Byte;
 
@@ -35,6 +37,17 @@ public class RRpcRequest extends RpcAcsRequest<RRpcResponse> {
 	private String productKey;
 
 	private Integer timeout;
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
+		}
+	}
 
 	public String getRequestBase64Byte() {
 		return this.requestBase64Byte;

@@ -39,6 +39,8 @@ public class HttpResponseTest {
     public void getSetTest() {
         response.setStatus(66);
         Assert.assertEquals(66, response.getStatus());
+        response.setReasonPhrase("OK");
+        Assert.assertEquals("OK", response.getReasonPhrase());
     }
 
     @Test
@@ -48,5 +50,14 @@ public class HttpResponseTest {
 
         response.setStatus(300);
         Assert.assertFalse(response.isSuccess());
+
+        response.setStatus(100);
+        Assert.assertFalse(response.isSuccess());
+    }
+
+    @Test
+    public void toStringTest() {
+        HttpResponse response = new HttpResponse("testURL");
+        Assert.assertTrue(response.toString().contains("testURL"));
     }
 }

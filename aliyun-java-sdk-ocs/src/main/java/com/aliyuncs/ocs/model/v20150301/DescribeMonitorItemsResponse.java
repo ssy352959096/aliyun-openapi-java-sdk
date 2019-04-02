@@ -11,6 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.aliyuncs.ocs.model.v20150301;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class DescribeMonitorItemsResponse extends AcsResponse {
 
 	private String requestId;
 
-	private GetOcsMonitorItemsResponseDTO getOcsMonitorItemsResponseDTO;
+	private List<OcsMonitorItem> monitorItems;
 
 	public String getRequestId() {
 		return this.requestId;
@@ -36,47 +37,34 @@ public class DescribeMonitorItemsResponse extends AcsResponse {
 		this.requestId = requestId;
 	}
 
-	public GetOcsMonitorItemsResponseDTO getGetOcsMonitorItemsResponseDTO() {
-		return this.getOcsMonitorItemsResponseDTO;
+	public List<OcsMonitorItem> getMonitorItems() {
+		return this.monitorItems;
 	}
 
-	public void setGetOcsMonitorItemsResponseDTO(GetOcsMonitorItemsResponseDTO getOcsMonitorItemsResponseDTO) {
-		this.getOcsMonitorItemsResponseDTO = getOcsMonitorItemsResponseDTO;
+	public void setMonitorItems(List<OcsMonitorItem> monitorItems) {
+		this.monitorItems = monitorItems;
 	}
 
-	public static class GetOcsMonitorItemsResponseDTO {
+	public static class OcsMonitorItem {
 
-		private List<MonitorItem> monitorItems;
+		private String monitorKey;
 
-		public List<MonitorItem> getMonitorItems() {
-			return this.monitorItems;
+		private String unit;
+
+		public String getMonitorKey() {
+			return this.monitorKey;
 		}
 
-		public void setMonitorItems(List<MonitorItem> monitorItems) {
-			this.monitorItems = monitorItems;
+		public void setMonitorKey(String monitorKey) {
+			this.monitorKey = monitorKey;
 		}
 
-		public static class MonitorItem {
+		public String getUnit() {
+			return this.unit;
+		}
 
-			private String monitorKey;
-
-			private String unit;
-
-			public String getMonitorKey() {
-				return this.monitorKey;
-			}
-
-			public void setMonitorKey(String monitorKey) {
-				this.monitorKey = monitorKey;
-			}
-
-			public String getUnit() {
-				return this.unit;
-			}
-
-			public void setUnit(String unit) {
-				this.unit = unit;
-			}
+		public void setUnit(String unit) {
+			this.unit = unit;
 		}
 	}
 

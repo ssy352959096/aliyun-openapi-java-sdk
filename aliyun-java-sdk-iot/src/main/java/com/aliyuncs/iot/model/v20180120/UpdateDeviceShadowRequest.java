@@ -23,10 +23,12 @@ import com.aliyuncs.RpcAcsRequest;
 public class UpdateDeviceShadowRequest extends RpcAcsRequest<UpdateDeviceShadowResponse> {
 	
 	public UpdateDeviceShadowRequest() {
-		super("Iot", "2018-01-20", "UpdateDeviceShadow");
+		super("Iot", "2018-01-20", "UpdateDeviceShadow", "iot");
 	}
 
 	private String shadowMessage;
+
+	private String iotInstanceId;
 
 	private String deviceName;
 
@@ -40,6 +42,17 @@ public class UpdateDeviceShadowRequest extends RpcAcsRequest<UpdateDeviceShadowR
 		this.shadowMessage = shadowMessage;
 		if(shadowMessage != null){
 			putQueryParameter("ShadowMessage", shadowMessage);
+		}
+	}
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
 		}
 	}
 

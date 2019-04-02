@@ -15,7 +15,6 @@
 package com.aliyuncs.iot.model.v20180120;
 
 import java.util.List;
-import java.util.Map;
 import com.aliyuncs.AcsResponse;
 import com.aliyuncs.iot.transform.v20180120.QueryDeviceResponseUnmarshaller;
 import com.aliyuncs.transform.UnmarshallerContext;
@@ -134,6 +133,12 @@ public class QueryDeviceResponse extends AcsResponse {
 
 		private String gmtModified;
 
+		private String utcCreate;
+
+		private String utcModified;
+
+		private String iotId;
+
 		public String getDeviceId() {
 			return this.deviceId;
 		}
@@ -196,6 +201,30 @@ public class QueryDeviceResponse extends AcsResponse {
 
 		public void setGmtModified(String gmtModified) {
 			this.gmtModified = gmtModified;
+		}
+
+		public String getUtcCreate() {
+			return this.utcCreate;
+		}
+
+		public void setUtcCreate(String utcCreate) {
+			this.utcCreate = utcCreate;
+		}
+
+		public String getUtcModified() {
+			return this.utcModified;
+		}
+
+		public void setUtcModified(String utcModified) {
+			this.utcModified = utcModified;
+		}
+
+		public String getIotId() {
+			return this.iotId;
+		}
+
+		public void setIotId(String iotId) {
+			this.iotId = iotId;
 		}
 	}
 

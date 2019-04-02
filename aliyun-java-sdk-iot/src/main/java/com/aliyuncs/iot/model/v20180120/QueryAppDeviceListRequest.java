@@ -24,12 +24,14 @@ import java.util.List;
 public class QueryAppDeviceListRequest extends RpcAcsRequest<QueryAppDeviceListResponse> {
 	
 	public QueryAppDeviceListRequest() {
-		super("Iot", "2018-01-20", "QueryAppDeviceList");
+		super("Iot", "2018-01-20", "QueryAppDeviceList", "iot");
 	}
 
 	private List<String> productKeyLists;
 
 	private List<String> categoryKeyLists;
+
+	private String iotInstanceId;
 
 	private Integer pageSize;
 
@@ -63,6 +65,17 @@ public class QueryAppDeviceListRequest extends RpcAcsRequest<QueryAppDeviceListR
 				putQueryParameter("CategoryKeyList." + (i + 1) , categoryKeyLists.get(i));
 			}
 		}	
+	}
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
+		}
 	}
 
 	public Integer getPageSize() {

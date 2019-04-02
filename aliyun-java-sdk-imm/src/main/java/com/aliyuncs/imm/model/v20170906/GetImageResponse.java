@@ -15,7 +15,6 @@
 package com.aliyuncs.imm.model.v20170906;
 
 import java.util.List;
-import java.util.Map;
 import com.aliyuncs.AcsResponse;
 import com.aliyuncs.imm.transform.v20170906.GetImageResponseUnmarshaller;
 import com.aliyuncs.transform.UnmarshallerContext;
@@ -85,6 +84,12 @@ public class GetImageResponse extends AcsResponse {
 	private String celebrityFailReason;
 
 	private String tagsStatus;
+
+	private String remarksC;
+
+	private String remarksD;
+
+	private String externalId;
 
 	private List<FacesItem> faces;
 
@@ -334,6 +339,30 @@ public class GetImageResponse extends AcsResponse {
 		this.tagsStatus = tagsStatus;
 	}
 
+	public String getRemarksC() {
+		return this.remarksC;
+	}
+
+	public void setRemarksC(String remarksC) {
+		this.remarksC = remarksC;
+	}
+
+	public String getRemarksD() {
+		return this.remarksD;
+	}
+
+	public void setRemarksD(String remarksD) {
+		this.remarksD = remarksD;
+	}
+
+	public String getExternalId() {
+		return this.externalId;
+	}
+
+	public void setExternalId(String externalId) {
+		this.externalId = externalId;
+	}
+
 	public List<FacesItem> getFaces() {
 		return this.faces;
 	}
@@ -381,6 +410,10 @@ public class GetImageResponse extends AcsResponse {
 		private Float attractive;
 
 		private Float genderConfidence;
+
+		private String groupId;
+
+		private Float faceQuality;
 
 		private FaceAttributes faceAttributes;
 
@@ -442,6 +475,22 @@ public class GetImageResponse extends AcsResponse {
 			this.genderConfidence = genderConfidence;
 		}
 
+		public String getGroupId() {
+			return this.groupId;
+		}
+
+		public void setGroupId(String groupId) {
+			this.groupId = groupId;
+		}
+
+		public Float getFaceQuality() {
+			return this.faceQuality;
+		}
+
+		public void setFaceQuality(Float faceQuality) {
+			this.faceQuality = faceQuality;
+		}
+
 		public FaceAttributes getFaceAttributes() {
 			return this.faceAttributes;
 		}
@@ -477,6 +526,8 @@ public class GetImageResponse extends AcsResponse {
 			private Float maskConfidence;
 
 			private FaceBoundary faceBoundary;
+
+			private HeadPose headPose;
 
 			public String getGlasses() {
 				return this.glasses;
@@ -550,6 +601,14 @@ public class GetImageResponse extends AcsResponse {
 				this.faceBoundary = faceBoundary;
 			}
 
+			public HeadPose getHeadPose() {
+				return this.headPose;
+			}
+
+			public void setHeadPose(HeadPose headPose) {
+				this.headPose = headPose;
+			}
+
 			public static class FaceBoundary {
 
 				private Integer left;
@@ -590,6 +649,39 @@ public class GetImageResponse extends AcsResponse {
 
 				public void setHeight(Integer height) {
 					this.height = height;
+				}
+			}
+
+			public static class HeadPose {
+
+				private Float pitch;
+
+				private Float roll;
+
+				private Float yaw;
+
+				public Float getPitch() {
+					return this.pitch;
+				}
+
+				public void setPitch(Float pitch) {
+					this.pitch = pitch;
+				}
+
+				public Float getRoll() {
+					return this.roll;
+				}
+
+				public void setRoll(Float roll) {
+					this.roll = roll;
+				}
+
+				public Float getYaw() {
+					return this.yaw;
+				}
+
+				public void setYaw(Float yaw) {
+					this.yaw = yaw;
 				}
 			}
 		}

@@ -11,6 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.aliyuncs.bss.model.v20140714;
 
 import com.aliyuncs.RpcAcsRequest;
@@ -23,7 +24,7 @@ import com.aliyuncs.http.ProtocolType;
 public class DescribeCashDetailRequest extends RpcAcsRequest<DescribeCashDetailResponse> {
 	
 	public DescribeCashDetailRequest() {
-		super("Bss", "2014-07-14", "DescribeCashDetail");
+		super("Bss", "2014-07-14", "DescribeCashDetail", "bss");
 		setProtocol(ProtocolType.HTTPS);
 	}
 

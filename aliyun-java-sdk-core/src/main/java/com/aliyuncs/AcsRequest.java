@@ -4,6 +4,7 @@ import com.aliyuncs.auth.*;
 import com.aliyuncs.http.FormatType;
 import com.aliyuncs.http.HttpRequest;
 import com.aliyuncs.http.ProtocolType;
+import com.aliyuncs.http.UserAgentConfig;
 import com.aliyuncs.regions.ProductDomain;
 
 import java.io.UnsupportedEncodingException;
@@ -20,6 +21,7 @@ public abstract class AcsRequest<T extends AcsResponse> extends HttpRequest {
     private final Map<String, String> queryParameters = new HashMap<String, String>();
     private final Map<String, String> domainParameters = new HashMap<String, String>();
     private final Map<String, String> bodyParameters = new HashMap<String, String>();
+    private UserAgentConfig userAgentConfig;
     protected ISignatureComposer composer = null;
     private String version = null;
     private String product = null;
@@ -64,79 +66,124 @@ public abstract class AcsRequest<T extends AcsResponse> extends HttpRequest {
         return urlBuilder.toString();
     }
 
+    /**
+     * @deprecated : Use setSysEndpoint instead of this
+     */
     @Deprecated
     public void setEndpoint(String endpoint) {
         ProductDomain productDomain = new ProductDomain(product, endpoint);
         setProductDomain(productDomain);
     }
 
+    /**
+     * @deprecated : Use getSysVersion instead of this
+     */
     @Deprecated
     public String getVersion() {
         return version;
     }
 
+    /**
+     * @deprecated : Use setSysVersion instead of this
+     */
     @Deprecated
     public void setVersion(String version) {
         this.version = version;
     }
 
+    /**
+     * @deprecated : Use getSysProduct instead of this
+     */
     @Deprecated
     public String getProduct() {
         return product;
     }
 
+    /**
+     * @deprecated : Use getSysActionName instead of this
+     */
     @Deprecated
     public String getActionName() {
         return actionName;
     }
 
+    /**
+     * @deprecated : Use setSysActionName instead of this
+     */
     @Deprecated
     public void setActionName(String actionName) {
         this.actionName = actionName;
     }
 
+    /**
+     * @deprecated : Use getSysRegionId instead of this
+     */
     @Deprecated
     public String getRegionId() {
         return regionId;
     }
 
+    /**
+     * @deprecated : Use setSysRegionId instead of this
+     */
     @Deprecated
     public void setRegionId(String regionId) {
         this.regionId = regionId;
     }
 
+    /**
+     * @deprecated : Use getSysSecurityToken instead of this
+     */
     @Deprecated
     public String getSecurityToken() {
         return securityToken;
     }
 
+    /**
+     * @deprecated : Use setSysSecurityToken instead of this
+     */
     @Deprecated
     public void setSecurityToken(String securityToken) {
         this.securityToken = securityToken;
         putQueryParameter("SecurityToken", securityToken);
     }
 
+    /**
+     * @deprecated : Use getSysAcceptFormat instead of this
+     */
     @Deprecated
     public FormatType getAcceptFormat() {
         return acceptFormat;
     }
 
+    /**
+     * @deprecated : Use setSysAcceptFormat instead of this
+     */
     @Deprecated
     public void setAcceptFormat(FormatType acceptFormat) {
         this.acceptFormat = acceptFormat;
         this.putHeaderParameter("Accept", FormatType.mapFormatToAccept(acceptFormat));
     }
 
+    /**
+     * @deprecated : Use getSysProtocol instead of this
+     */
     @Deprecated
     public ProtocolType getProtocol() {
         return protocol;
     }
 
+    /**
+     * @deprecated : Use setSysProtocol instead of this
+     */
     @Deprecated
     public void setProtocol(ProtocolType protocol) {
         this.protocol = protocol;
     }
 
+    /**
+     * @deprecated : Use getSysQueryParameters instead of this
+     */
     @Deprecated
     public Map<String, String> getQueryParameters() {
         return Collections.unmodifiableMap(queryParameters);
@@ -154,6 +201,9 @@ public abstract class AcsRequest<T extends AcsResponse> extends HttpRequest {
         setParameter(this.queryParameters, name, value);
     }
 
+    /**
+     * @deprecated : Use getSysDomainParameters instead of this
+     */
     @Deprecated
     public Map<String, String> getDomainParameters() {
         return Collections.unmodifiableMap(domainParameters);
@@ -167,6 +217,9 @@ public abstract class AcsRequest<T extends AcsResponse> extends HttpRequest {
         setParameter(this.domainParameters, name, value);
     }
 
+    /**
+     * @deprecated : Use getSysBodyParameters instead of this
+     */
     @Deprecated
     public Map<String, String> getBodyParameters() {
         return Collections.unmodifiableMap(bodyParameters);
@@ -191,41 +244,54 @@ public abstract class AcsRequest<T extends AcsResponse> extends HttpRequest {
         map.put(name, String.valueOf(value));
     }
 
+    /**
+     * @deprecated : Use getSysLocationProduct instead of this
+     */
     @Deprecated
     public String getLocationProduct() {
         return locationProduct;
     }
 
+    /**
+     * @deprecated : Use setSysLocationProduct instead of this
+     */
     @Deprecated
     public void setLocationProduct(String locationProduct) {
         this.locationProduct = locationProduct;
         putQueryParameter("ServiceCode", locationProduct);
     }
 
+    /**
+     * @deprecated : Use getSysEndpointType instead of this
+     */
     @Deprecated
     public String getEndpointType() {
         return endpointType;
     }
 
+    /**
+     * @deprecated : Use setSysEndpointType instead of this
+     */
     @Deprecated
     public void setEndpointType(String endpointType) {
         this.endpointType = endpointType;
         putQueryParameter("Type", endpointType);
     }
 
+    /**
+     * @deprecated : Use getSysProductDomain instead of this
+     */
     @Deprecated
     public ProductDomain getProductDomain() {
         return productDomain;
     }
 
+    /**
+     * @deprecated : Use setSysProductDomain instead of this
+     */
     @Deprecated
     public void setProductDomain(ProductDomain productDomain) {
         this.productDomain = productDomain;
-    }
-
-    public HttpRequest signRequest(Signer signer, Credential credential, FormatType format, ProductDomain domain)
-            throws InvalidKeyException, IllegalStateException, UnsupportedEncodingException, NoSuchAlgorithmException {
-        return signRequest(signer, new LegacyCredentials(credential), format, domain);
     }
 
     public abstract HttpRequest signRequest(Signer signer, AlibabaCloudCredentials credentials, FormatType format,
@@ -321,4 +387,14 @@ public abstract class AcsRequest<T extends AcsResponse> extends HttpRequest {
         this.productDomain = productDomain;
     }
 
+    public UserAgentConfig getSysUserAgentConfig() {
+        return userAgentConfig;
+    }
+
+    public void appendUserAgent(String key, String value) {
+        if (this.userAgentConfig == null) {
+            this.userAgentConfig = new UserAgentConfig();
+        }
+        this.userAgentConfig.append(key, value);
+    }
 }

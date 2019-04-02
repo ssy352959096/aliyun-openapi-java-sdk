@@ -23,10 +23,23 @@ import com.aliyuncs.RpcAcsRequest;
 public class QueryDeviceGroupTagListRequest extends RpcAcsRequest<QueryDeviceGroupTagListResponse> {
 	
 	public QueryDeviceGroupTagListRequest() {
-		super("Iot", "2018-01-20", "QueryDeviceGroupTagList");
+		super("Iot", "2018-01-20", "QueryDeviceGroupTagList", "iot");
 	}
 
+	private String iotInstanceId;
+
 	private String groupId;
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
+		}
+	}
 
 	public String getGroupId() {
 		return this.groupId;

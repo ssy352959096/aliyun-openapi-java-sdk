@@ -23,12 +23,14 @@ import com.aliyuncs.RpcAcsRequest;
 public class NotifyAddThingTopoRequest extends RpcAcsRequest<NotifyAddThingTopoResponse> {
 	
 	public NotifyAddThingTopoRequest() {
-		super("Iot", "2018-01-20", "NotifyAddThingTopo");
+		super("Iot", "2018-01-20", "NotifyAddThingTopo", "iot");
 	}
 
 	private String gwProductKey;
 
 	private String gwDeviceName;
+
+	private String iotInstanceId;
 
 	private String gwIotId;
 
@@ -53,6 +55,17 @@ public class NotifyAddThingTopoRequest extends RpcAcsRequest<NotifyAddThingTopoR
 		this.gwDeviceName = gwDeviceName;
 		if(gwDeviceName != null){
 			putQueryParameter("GwDeviceName", gwDeviceName);
+		}
+	}
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
 		}
 	}
 

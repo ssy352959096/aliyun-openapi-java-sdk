@@ -1,14 +1,13 @@
 package com.aliyuncs.profile;
 
-import com.aliyuncs.auth.AlibabaCloudCredentialsProvider;
-import com.aliyuncs.auth.Credential;
-import com.aliyuncs.auth.CredentialsBackupCompatibilityAdaptor;
-import com.aliyuncs.auth.ICredentialProvider;
-import com.aliyuncs.auth.ISigner;
+import com.aliyuncs.auth.*;
 import com.aliyuncs.endpoint.DefaultEndpointResolver;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.http.FormatType;
 import com.aliyuncs.http.HttpClientConfig;
+import org.slf4j.Logger;
+
+import static com.aliyuncs.utils.LogUtils.DEFAULT_LOG_FORMAT;
 
 @SuppressWarnings("deprecation")
 public class DefaultProfile implements IClientProfile {
@@ -21,6 +20,8 @@ public class DefaultProfile implements IClientProfile {
     private HttpClientConfig httpClientConfig = HttpClientConfig.getDefault();
     private boolean usingInternalLocationService = false;
     private boolean usingVpcEndpoint = false;
+    private Logger logger;
+    private String logFormat = DEFAULT_LOG_FORMAT;
 
     private DefaultProfile() {
     }
@@ -34,19 +35,8 @@ public class DefaultProfile implements IClientProfile {
         this.regionId = regionId;
     }
 
-
-    private DefaultProfile(ICredentialProvider icredential) {
-        this.icredential = icredential;
-    }
-
     private DefaultProfile(String region, ICredentialProvider icredential) {
         this.regionId = region;
-        this.icredential = icredential;
-    }
-
-    private DefaultProfile(ICredentialProvider icredential, String region, FormatType format) {
-        this.regionId = region;
-        this.acceptFormat = format;
         this.icredential = icredential;
     }
 
@@ -79,12 +69,18 @@ public class DefaultProfile implements IClientProfile {
         return new DefaultProfile(regionId);
     }
 
+    /**
+     * @Deprecated : Use addEndpoint(String regionId, String product, String endpoint) instead of this
+     */
     @Deprecated
     public synchronized static void addEndpoint(String endpointName, String regionId, String product, String domain)
             throws ClientException {
         addEndpoint(endpointName, regionId, product, domain, true);
     }
 
+    /**
+     * @Deprecated : Use addEndpoint(String regionId, String product, String endpoint) instead of this
+     */
     @Deprecated
     public synchronized static void addEndpoint(String endpointName, String regionId, String product, String domain,
                                                 boolean isNeverExpire) {
@@ -166,5 +162,34 @@ public class DefaultProfile implements IClientProfile {
     @Override
     public void enableUsingVpcEndpoint() {
         this.usingVpcEndpoint = true;
+    }
+
+    /**
+     * @deprecated : use enableUsingInternalLocationService instead of this.
+     */
+    @Override
+    @Deprecated
+    public void setUsingInternalLocationService() {
+        enableUsingInternalLocationService();
+    }
+
+    @Override
+    public Logger getLogger() {
+        return logger;
+    }
+
+    @Override
+    public void setLogger(Logger logger) {
+        this.logger = logger;
+    }
+
+    @Override
+    public String getLogFormat() {
+        return logFormat;
+    }
+
+    @Override
+    public void setLogFormat(String logFormat) {
+        this.logFormat = logFormat;
     }
 }

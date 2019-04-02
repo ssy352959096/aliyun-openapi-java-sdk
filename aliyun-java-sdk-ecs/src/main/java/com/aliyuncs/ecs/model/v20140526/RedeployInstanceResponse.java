@@ -14,7 +14,6 @@
 
 package com.aliyuncs.ecs.model.v20140526;
 
-import java.util.Map;
 import com.aliyuncs.AcsResponse;
 import com.aliyuncs.ecs.transform.v20140526.RedeployInstanceResponseUnmarshaller;
 import com.aliyuncs.transform.UnmarshallerContext;
@@ -27,12 +26,22 @@ public class RedeployInstanceResponse extends AcsResponse {
 
 	private String requestId;
 
+	private String taskId;
+
 	public String getRequestId() {
 		return this.requestId;
 	}
 
 	public void setRequestId(String requestId) {
 		this.requestId = requestId;
+	}
+
+	public String getTaskId() {
+		return this.taskId;
+	}
+
+	public void setTaskId(String taskId) {
+		this.taskId = taskId;
 	}
 
 	@Override

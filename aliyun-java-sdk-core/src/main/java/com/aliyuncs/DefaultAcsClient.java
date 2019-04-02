@@ -18,12 +18,15 @@ import com.aliyuncs.transform.UnmarshallerContext;
 import com.aliyuncs.unmarshaller.Unmarshaller;
 import com.aliyuncs.unmarshaller.UnmarshallerFactory;
 import com.aliyuncs.utils.IOUtils;
+import com.aliyuncs.utils.LogUtils;
+import org.slf4j.Logger;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -35,14 +38,28 @@ public class DefaultAcsClient implements IAcsClient {
     private boolean autoRetry = true;
     private IClientProfile clientProfile = null;
     private AlibabaCloudCredentialsProvider credentialsProvider;
+    private DefaultCredentialsProvider defaultCredentialsProvider;
+
     private IHttpClient httpClient;
     private EndpointResolver endpointResolver;
     private static final String SIGNATURE_BEGIN = "string to sign is:";
+    private final UserAgentConfig userAgentConfig = new UserAgentConfig();
 
+    /**
+     * @Deprecated : Use DefaultAcsClient(String regionId) instead of this
+     */
     @Deprecated
-    public DefaultAcsClient() {
+    public DefaultAcsClient() throws ClientException {
         this.clientProfile = DefaultProfile.getProfile();
         this.httpClient = HttpClientFactory.buildClient(this.clientProfile);
+    }
+
+    public DefaultAcsClient(String regionId) throws ClientException {
+        this.clientProfile = DefaultProfile.getProfile(regionId);
+        this.httpClient = HttpClientFactory.buildClient(this.clientProfile);
+        this.defaultCredentialsProvider = new DefaultCredentialsProvider();
+        this.endpointResolver = new DefaultEndpointResolver(this);
+        this.appendUserAgent("HTTPClient", this.httpClient.getClass().getSimpleName());
     }
 
     public DefaultAcsClient(IClientProfile profile) {
@@ -59,11 +76,12 @@ public class DefaultAcsClient implements IAcsClient {
         this.clientProfile.setCredentialsProvider(this.credentialsProvider);
         this.httpClient = HttpClientFactory.buildClient(this.clientProfile);
         this.endpointResolver = new DefaultEndpointResolver(this, profile);
+        this.appendUserAgent("HTTPClient", this.httpClient.getClass().getSimpleName());
     }
 
     @Override
-    public <T extends AcsResponse> HttpResponse doAction(AcsRequest<T> request)
-            throws ClientException, ServerException {
+    public <T extends AcsResponse> HttpResponse doAction(AcsRequest<T> request) throws ClientException,
+            ServerException {
         return this.doAction(request, autoRetry, maxRetryNumber, this.clientProfile);
     }
 
@@ -82,15 +100,13 @@ public class DefaultAcsClient implements IAcsClient {
     @Override
     public <T extends AcsResponse> HttpResponse doAction(AcsRequest<T> request, String regionId, Credential credential)
             throws ClientException, ServerException {
-        boolean retry = this.autoRetry;
-        int retryNumber = this.maxRetryNumber;
         Signer signer = Signer.getSigner(new LegacyCredentials(credential));
         FormatType format = null;
         if (null == request.getSysRegionId()) {
             request.setSysRegionId(regionId);
         }
-
-        return this.doAction(request, retry, retryNumber, request.getSysRegionId(), credential, signer, format);
+        return doAction(request, autoRetry, maxRetryNumber, regionId, new LegacyCredentials(credential), signer,
+                format);
     }
 
     @Override
@@ -121,8 +137,8 @@ public class DefaultAcsClient implements IAcsClient {
     }
 
     @Override
-    public <T extends AcsResponse> T getAcsResponse(AcsRequest<T> request, String regionId)
-            throws ServerException, ClientException {
+    public <T extends AcsResponse> T getAcsResponse(AcsRequest<T> request, String regionId) throws ServerException,
+            ClientException {
         if (null == request.getSysRegionId()) {
             request.setSysRegionId(regionId);
         }
@@ -154,7 +170,7 @@ public class DefaultAcsClient implements IAcsClient {
 
     @Override
     public <T extends AcsResponse> HttpResponse doAction(AcsRequest<T> request, boolean autoRetry, int maxRetryCounts,
-            IClientProfile profile) throws ClientException, ServerException {
+                                                         IClientProfile profile) throws ClientException, ServerException {
         if (null == profile) {
             throw new ClientException("SDK.InvalidProfile", "No active profile found.");
         }
@@ -164,8 +180,12 @@ public class DefaultAcsClient implements IAcsClient {
         if (null == request.getSysRegionId()) {
             request.setSysRegionId(region);
         }
-
-        AlibabaCloudCredentials credentials = this.credentialsProvider.getCredentials();
+        AlibabaCloudCredentials credentials;
+        if (null == credentialsProvider) {
+            credentials = this.defaultCredentialsProvider.getCredentials();
+        } else {
+            credentials = this.credentialsProvider.getCredentials();
+        }
         Signer signer = Signer.getSigner(credentials);
         FormatType format = profile.getFormat();
 
@@ -181,7 +201,8 @@ public class DefaultAcsClient implements IAcsClient {
             AcsError error = readError(baseResponse, format);
             if (500 <= baseResponse.getStatus()) {
                 throw new ServerException(error.getErrorCode(), error.getErrorMessage(), error.getRequestId());
-            } else if ("IncompleteSignature".equals(error.getErrorCode())) {
+            } else if (400 == baseResponse.getStatus() && ("IncompleteSignature".equals(error.getErrorCode())
+                    || "SignatureDoesNotMatch".equals(error.getErrorCode()))) {
                 String errorMessage = error.getErrorMessage();
                 Pattern startPattern = Pattern.compile(SIGNATURE_BEGIN);
                 Matcher startMatcher = startPattern.matcher(errorMessage);
@@ -198,16 +219,19 @@ public class DefaultAcsClient implements IAcsClient {
         }
     }
 
+    /**
+     * @Deprecated : Use other overload methods
+     */
     @Deprecated
     public <T extends AcsResponse> HttpResponse doAction(AcsRequest<T> request, boolean autoRetry, int maxRetryNumber,
-            String regionId, Credential credential, Signer signer, FormatType format)
-            throws ClientException, ServerException {
+                                                         String regionId, Credential credential, Signer signer, FormatType format) throws ClientException,
+            ServerException {
         return doAction(request, autoRetry, maxRetryNumber, regionId, new LegacyCredentials(credential), signer,
                 format);
     }
 
     private <T extends AcsResponse> HttpResponse doAction(AcsRequest<T> request, boolean autoRetry, int maxRetryNumber,
-            String regionId, AlibabaCloudCredentials credentials, Signer signer, FormatType format)
+                                                          String regionId, AlibabaCloudCredentials credentials, Signer signer, FormatType format)
             throws ClientException, ServerException {
 
         try {
@@ -219,8 +243,8 @@ public class DefaultAcsClient implements IAcsClient {
             if (request.getSysProductDomain() != null) {
                 domain = request.getSysProductDomain();
             } else {
-                ResolveEndpointRequest resolveEndpointRequest = new ResolveEndpointRequest(regionId,
-                        request.getSysProduct(), request.getSysLocationProduct(), request.getSysEndpointType());
+                ResolveEndpointRequest resolveEndpointRequest = new ResolveEndpointRequest(regionId, request
+                        .getSysProduct(), request.getSysLocationProduct(), request.getSysEndpointType());
                 String endpoint = endpointResolver.resolve(resolveEndpointRequest);
                 domain = new ProductDomain(request.getSysProduct(), endpoint);
 
@@ -234,17 +258,39 @@ public class DefaultAcsClient implements IAcsClient {
             if (request.getSysProtocol() == null) {
                 request.setSysProtocol(this.clientProfile.getHttpClientConfig().getProtocolType());
             }
-
+            request.putHeaderParameter("User-Agent", UserAgentConfig.resolve(request.getSysUserAgentConfig(),
+                    this.userAgentConfig));
             try {
+                Logger logger = clientProfile.getLogger();
                 HttpRequest httpRequest = request.signRequest(signer, credentials, format, domain);
+
+                HttpUtil.debugHttpRequest(request);
+                String startTime = LogUtils.localeNow();
+                long start = System.nanoTime();
                 HttpResponse response;
                 response = this.httpClient.syncInvoke(httpRequest);
+                long end = System.nanoTime();
+                String timeCost = TimeUnit.NANOSECONDS.toMillis(end - start) + "ms";
+                if (null != logger) {
+                    try {
+                        LogUtils.LogUnit logUnit = LogUtils.createLogUnit(request, response);
+                        logUnit.setStartTime(startTime);
+                        logUnit.setCost(timeCost);
+                        String logContent = LogUtils.fillContent(clientProfile.getLogFormat(), logUnit);
+                        logger.info(logContent);
+                    } catch (Throwable e) {
+                        e.printStackTrace();
+                    }
+                }
+                HttpUtil.debugHttpResponse(response);
                 return response;
             } catch (SocketTimeoutException exp) {
                 throw new ClientException("SDK.ServerUnreachable",
-                        "SocketTimeoutException has occurred on a socket read or accept.", exp);
+                        "SocketTimeoutException has occurred on a socket read or accept.The url is " +
+                                request.getSysUrl(), exp);
             } catch (IOException exp) {
-                throw new ClientException("SDK.ServerUnreachable", "Server unreachable: " + exp.toString(), exp);
+                throw new ClientException("SDK.ServerUnreachable",
+                        "Server unreachable: connection " + request.getSysUrl() + " failed", exp);
             }
         } catch (InvalidKeyException exp) {
             throw new ClientException("SDK.InvalidAccessSecret", "Specified access secret is not valid.", exp);
@@ -260,8 +306,8 @@ public class DefaultAcsClient implements IAcsClient {
     protected <T extends AcsResponse> T readResponse(Class<T> clasz, HttpResponse httpResponse, FormatType format)
             throws ClientException {
         // new version response contains "@XmlRootElement" annotation
-        if (clasz.isAnnotationPresent(XmlRootElement.class)
-                && !clientProfile.getHttpClientConfig().isCompatibleMode()) {
+        if (clasz.isAnnotationPresent(XmlRootElement.class) && !clientProfile.getHttpClientConfig()
+                .isCompatibleMode()) {
             Unmarshaller unmarshaller = UnmarshallerFactory.getUnmarshaller(format);
             return unmarshaller.unmarshal(clasz, httpResponse.getHttpContentString());
         } else {
@@ -278,8 +324,8 @@ public class DefaultAcsClient implements IAcsClient {
             try {
                 response = clasz.newInstance();
             } catch (Exception e) {
-                throw new ClientException("SDK.InvalidResponseClass",
-                        "Unable to allocate " + clasz.getName() + " class");
+                throw new ClientException("SDK.InvalidResponseClass", "Unable to allocate " + clasz.getName()
+                        + " class");
             }
 
             String responseEndpoint = clasz.getName().substring(clasz.getName().lastIndexOf(".") + 1);
@@ -350,11 +396,31 @@ public class DefaultAcsClient implements IAcsClient {
 
     @Override
     public void shutdown() {
-        IOUtils.closeQuietly(this.httpClient);
+        if (!this.httpClient.isSingleton()) {
+            IOUtils.closeQuietly(this.httpClient);
+            this.httpClient = null;
+        }
+
     }
 
     public DefaultProfile getProfile() {
         return (DefaultProfile) clientProfile;
+    }
+
+    public void appendUserAgent(String key, String value) {
+        this.userAgentConfig.append(key, value);
+    }
+
+    public UserAgentConfig getUserAgentConfig() {
+        return userAgentConfig;
+    }
+
+    public IHttpClient getHttpClient() {
+        return httpClient;
+    }
+
+    public void setHttpClient(IHttpClient httpClient) {
+        this.httpClient = httpClient;
     }
 
 }

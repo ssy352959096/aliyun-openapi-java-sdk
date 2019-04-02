@@ -23,10 +23,12 @@ import com.aliyuncs.RpcAcsRequest;
 public class SetDeviceGroupTagsRequest extends RpcAcsRequest<SetDeviceGroupTagsResponse> {
 	
 	public SetDeviceGroupTagsRequest() {
-		super("Iot", "2018-01-20", "SetDeviceGroupTags");
+		super("Iot", "2018-01-20", "SetDeviceGroupTags", "iot");
 	}
 
 	private String tagString;
+
+	private String iotInstanceId;
 
 	private String groupId;
 
@@ -38,6 +40,17 @@ public class SetDeviceGroupTagsRequest extends RpcAcsRequest<SetDeviceGroupTagsR
 		this.tagString = tagString;
 		if(tagString != null){
 			putQueryParameter("TagString", tagString);
+		}
+	}
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
 		}
 	}
 

@@ -15,7 +15,6 @@
 package com.aliyuncs.ecs.model.v20140526;
 
 import java.util.List;
-import java.util.Map;
 import com.aliyuncs.AcsResponse;
 import com.aliyuncs.ecs.transform.v20140526.DescribeDisksResponseUnmarshaller;
 import com.aliyuncs.transform.UnmarshallerContext;
@@ -140,6 +139,8 @@ public class DescribeDisksResponse extends AcsResponse {
 
 		private Integer iOPSWrite;
 
+		private String kMSKeyId;
+
 		private List<OperationLock> operationLocks;
 
 		private List<MountInstance> mountInstances;
@@ -154,10 +155,26 @@ public class DescribeDisksResponse extends AcsResponse {
 			this.diskId = diskId;
 		}
 
+		public String getBizRegionId() {
+			return this.regionId;
+		}
+
+		public void setBizRegionId(String regionId) {
+			this.regionId = regionId;
+		}
+
+		/**
+		 * @deprecated use getBizRegionId instead of this.
+		 */
+		@Deprecated
 		public String getRegionId() {
 			return this.regionId;
 		}
 
+		/**
+		 * @deprecated use setBizRegionId instead of this.
+		 */
+		@Deprecated
 		public void setRegionId(String regionId) {
 			this.regionId = regionId;
 		}
@@ -392,6 +409,14 @@ public class DescribeDisksResponse extends AcsResponse {
 
 		public void setIOPSWrite(Integer iOPSWrite) {
 			this.iOPSWrite = iOPSWrite;
+		}
+
+		public String getKMSKeyId() {
+			return this.kMSKeyId;
+		}
+
+		public void setKMSKeyId(String kMSKeyId) {
+			this.kMSKeyId = kMSKeyId;
 		}
 
 		public List<OperationLock> getOperationLocks() {

@@ -21,7 +21,6 @@ import com.aliyuncs.vod.model.v20170321.GetMezzanineInfoResponse;
 import com.aliyuncs.vod.model.v20170321.GetMezzanineInfoResponse.Mezzanine;
 import com.aliyuncs.vod.model.v20170321.GetMezzanineInfoResponse.Mezzanine.AudioStream;
 import com.aliyuncs.vod.model.v20170321.GetMezzanineInfoResponse.Mezzanine.VideoStream;
-import java.util.Map;
 import com.aliyuncs.transform.UnmarshallerContext;
 
 
@@ -95,6 +94,7 @@ public class GetMezzanineInfoResponseUnmarshaller {
 			videoStream.setDuration(context.stringValue("GetMezzanineInfoResponse.Mezzanine.VideoStreamList["+ i +"].Duration"));
 			videoStream.setNumFrames(context.stringValue("GetMezzanineInfoResponse.Mezzanine.VideoStreamList["+ i +"].NumFrames"));
 			videoStream.setLang(context.stringValue("GetMezzanineInfoResponse.Mezzanine.VideoStreamList["+ i +"].Lang"));
+			videoStream.setRotate(context.stringValue("GetMezzanineInfoResponse.Mezzanine.VideoStreamList["+ i +"].Rotate"));
 
 			videoStreamList.add(videoStream);
 		}

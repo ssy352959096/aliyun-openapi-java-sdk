@@ -19,7 +19,6 @@ import java.util.List;
 
 import com.aliyuncs.bssopenapi.model.v20171214.QueryUserAlarmThresholdResponse;
 import com.aliyuncs.bssopenapi.model.v20171214.QueryUserAlarmThresholdResponse.Data;
-import java.util.Map;
 import com.aliyuncs.transform.UnmarshallerContext;
 
 

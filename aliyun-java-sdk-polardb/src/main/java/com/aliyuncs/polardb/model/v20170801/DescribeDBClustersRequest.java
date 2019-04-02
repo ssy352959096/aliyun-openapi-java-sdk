@@ -15,6 +15,7 @@
 package com.aliyuncs.polardb.model.v20170801;
 
 import com.aliyuncs.RpcAcsRequest;
+import java.util.List;
 
 /**
  * @author auto create
@@ -43,6 +44,8 @@ public class DescribeDBClustersRequest extends RpcAcsRequest<DescribeDBClustersR
 	private String dBType;
 
 	private Integer pageSize;
+
+	private List<Tag> tags;
 
 	private String dBClusterIds;
 
@@ -145,6 +148,20 @@ public class DescribeDBClustersRequest extends RpcAcsRequest<DescribeDBClustersR
 		}
 	}
 
+	public List<Tag> getTags() {
+		return this.tags;
+	}
+
+	public void setTags(List<Tag> tags) {
+		this.tags = tags;	
+		if (tags != null) {
+			for (int depth1 = 0; depth1 < tags.size(); depth1++) {
+				putQueryParameter("Tag." + (depth1 + 1) + ".Value" , tags.get(depth1).getValue());
+				putQueryParameter("Tag." + (depth1 + 1) + ".Key" , tags.get(depth1).getKey());
+			}
+		}	
+	}
+
 	public String getDBClusterIds() {
 		return this.dBClusterIds;
 	}
@@ -153,6 +170,29 @@ public class DescribeDBClustersRequest extends RpcAcsRequest<DescribeDBClustersR
 		this.dBClusterIds = dBClusterIds;
 		if(dBClusterIds != null){
 			putQueryParameter("DBClusterIds", dBClusterIds);
+		}
+	}
+
+	public static class Tag {
+
+		private String value;
+
+		private String key;
+
+		public String getValue() {
+			return this.value;
+		}
+
+		public void setValue(String value) {
+			this.value = value;
+		}
+
+		public String getKey() {
+			return this.key;
+		}
+
+		public void setKey(String key) {
+			this.key = key;
 		}
 	}
 

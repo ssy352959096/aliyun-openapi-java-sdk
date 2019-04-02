@@ -22,7 +22,6 @@ import com.aliyuncs.ecs.model.v20140526.DescribeDisksResponse.Disk;
 import com.aliyuncs.ecs.model.v20140526.DescribeDisksResponse.Disk.MountInstance;
 import com.aliyuncs.ecs.model.v20140526.DescribeDisksResponse.Disk.OperationLock;
 import com.aliyuncs.ecs.model.v20140526.DescribeDisksResponse.Disk.Tag;
-import java.util.Map;
 import com.aliyuncs.transform.UnmarshallerContext;
 
 
@@ -69,6 +68,7 @@ public class DescribeDisksResponseUnmarshaller {
 			disk.setIOPS(context.integerValue("DescribeDisksResponse.Disks["+ i +"].IOPS"));
 			disk.setIOPSRead(context.integerValue("DescribeDisksResponse.Disks["+ i +"].IOPSRead"));
 			disk.setIOPSWrite(context.integerValue("DescribeDisksResponse.Disks["+ i +"].IOPSWrite"));
+			disk.setKMSKeyId(context.stringValue("DescribeDisksResponse.Disks["+ i +"].KMSKeyId"));
 
 			List<OperationLock> operationLocks = new ArrayList<OperationLock>();
 			for (int j = 0; j < context.lengthValue("DescribeDisksResponse.Disks["+ i +"].OperationLocks.Length"); j++) {

@@ -15,7 +15,6 @@
 package com.aliyuncs.vod.model.v20170321;
 
 import java.util.List;
-import java.util.Map;
 import com.aliyuncs.AcsResponse;
 import com.aliyuncs.vod.transform.v20170321.GetPlayInfoResponseUnmarshaller;
 import com.aliyuncs.transform.UnmarshallerContext;
@@ -99,6 +98,8 @@ public class GetPlayInfoResponse extends AcsResponse {
 		private String modificationTime;
 
 		private String encryptType;
+
+		private String narrowBandType;
 
 		public Long getWidth() {
 			return this.width;
@@ -266,6 +267,14 @@ public class GetPlayInfoResponse extends AcsResponse {
 
 		public void setEncryptType(String encryptType) {
 			this.encryptType = encryptType;
+		}
+
+		public String getNarrowBandType() {
+			return this.narrowBandType;
+		}
+
+		public void setNarrowBandType(String narrowBandType) {
+			this.narrowBandType = narrowBandType;
 		}
 	}
 

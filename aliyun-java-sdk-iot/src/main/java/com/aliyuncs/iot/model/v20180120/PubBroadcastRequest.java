@@ -23,12 +23,14 @@ import com.aliyuncs.RpcAcsRequest;
 public class PubBroadcastRequest extends RpcAcsRequest<PubBroadcastResponse> {
 	
 	public PubBroadcastRequest() {
-		super("Iot", "2018-01-20", "PubBroadcast");
+		super("Iot", "2018-01-20", "PubBroadcast", "iot");
 	}
 
 	private String topicFullName;
 
 	private String messageContent;
+
+	private String iotInstanceId;
 
 	private String productKey;
 
@@ -51,6 +53,17 @@ public class PubBroadcastRequest extends RpcAcsRequest<PubBroadcastResponse> {
 		this.messageContent = messageContent;
 		if(messageContent != null){
 			putQueryParameter("MessageContent", messageContent);
+		}
+	}
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
 		}
 	}
 

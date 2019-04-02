@@ -23,8 +23,10 @@ import com.aliyuncs.RpcAcsRequest;
 public class QueryDeviceGroupListRequest extends RpcAcsRequest<QueryDeviceGroupListResponse> {
 	
 	public QueryDeviceGroupListRequest() {
-		super("Iot", "2018-01-20", "QueryDeviceGroupList");
+		super("Iot", "2018-01-20", "QueryDeviceGroupList", "iot");
 	}
+
+	private String iotInstanceId;
 
 	private String superGroupId;
 
@@ -33,6 +35,17 @@ public class QueryDeviceGroupListRequest extends RpcAcsRequest<QueryDeviceGroupL
 	private Integer currentPage;
 
 	private String groupName;
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
+		}
+	}
 
 	public String getSuperGroupId() {
 		return this.superGroupId;

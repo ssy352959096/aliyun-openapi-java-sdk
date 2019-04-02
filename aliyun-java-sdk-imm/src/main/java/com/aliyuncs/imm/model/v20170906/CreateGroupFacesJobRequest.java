@@ -34,8 +34,6 @@ public class CreateGroupFacesJobRequest extends RpcAcsRequest<CreateGroupFacesJo
 
 	private String setId;
 
-	private String operation;
-
 	public String getNotifyTopicName() {
 		return this.notifyTopicName;
 	}
@@ -77,17 +75,6 @@ public class CreateGroupFacesJobRequest extends RpcAcsRequest<CreateGroupFacesJo
 		this.setId = setId;
 		if(setId != null){
 			putQueryParameter("SetId", setId);
-		}
-	}
-
-	public String getOperation() {
-		return this.operation;
-	}
-
-	public void setOperation(String operation) {
-		this.operation = operation;
-		if(operation != null){
-			putQueryParameter("Operation", operation);
 		}
 	}
 

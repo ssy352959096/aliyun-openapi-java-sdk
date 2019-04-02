@@ -19,7 +19,6 @@ import java.util.List;
 
 import com.aliyuncs.iot.model.v20180120.BatchGetDeviceStateResponse;
 import com.aliyuncs.iot.model.v20180120.BatchGetDeviceStateResponse.DeviceStatus;
-import java.util.Map;
 import com.aliyuncs.transform.UnmarshallerContext;
 
 
@@ -40,6 +39,7 @@ public class BatchGetDeviceStateResponseUnmarshaller {
 			deviceStatus.setStatus(context.stringValue("BatchGetDeviceStateResponse.DeviceStatusList["+ i +"].Status"));
 			deviceStatus.setAsAddress(context.stringValue("BatchGetDeviceStateResponse.DeviceStatusList["+ i +"].AsAddress"));
 			deviceStatus.setLastOnlineTime(context.stringValue("BatchGetDeviceStateResponse.DeviceStatusList["+ i +"].LastOnlineTime"));
+			deviceStatus.setIotId(context.stringValue("BatchGetDeviceStateResponse.DeviceStatusList["+ i +"].IotId"));
 
 			deviceStatusList.add(deviceStatus);
 		}

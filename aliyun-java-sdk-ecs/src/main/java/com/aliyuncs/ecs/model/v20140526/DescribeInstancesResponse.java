@@ -15,7 +15,6 @@
 package com.aliyuncs.ecs.model.v20140526;
 
 import java.util.List;
-import java.util.Map;
 import com.aliyuncs.AcsResponse;
 import com.aliyuncs.ecs.transform.v20140526.DescribeInstancesResponseUnmarshaller;
 import com.aliyuncs.transform.UnmarshallerContext;
@@ -184,6 +183,8 @@ public class DescribeInstancesResponse extends AcsResponse {
 
 		private DedicatedHostAttribute dedicatedHostAttribute;
 
+		private EcsCapacityReservationAttr ecsCapacityReservationAttr;
+
 		public String getInstanceId() {
 			return this.instanceId;
 		}
@@ -232,10 +233,26 @@ public class DescribeInstancesResponse extends AcsResponse {
 			this.oSType = oSType;
 		}
 
+		public String getBizRegionId() {
+			return this.regionId;
+		}
+
+		public void setBizRegionId(String regionId) {
+			this.regionId = regionId;
+		}
+
+		/**
+		 * @deprecated use getBizRegionId instead of this.
+		 */
+		@Deprecated
 		public String getRegionId() {
 			return this.regionId;
 		}
 
+		/**
+		 * @deprecated use setBizRegionId instead of this.
+		 */
+		@Deprecated
 		public void setRegionId(String regionId) {
 			this.regionId = regionId;
 		}
@@ -608,6 +625,14 @@ public class DescribeInstancesResponse extends AcsResponse {
 			this.dedicatedHostAttribute = dedicatedHostAttribute;
 		}
 
+		public EcsCapacityReservationAttr getEcsCapacityReservationAttr() {
+			return this.ecsCapacityReservationAttr;
+		}
+
+		public void setEcsCapacityReservationAttr(EcsCapacityReservationAttr ecsCapacityReservationAttr) {
+			this.ecsCapacityReservationAttr = ecsCapacityReservationAttr;
+		}
+
 		public static class NetworkInterface {
 
 			private String networkInterfaceId;
@@ -803,6 +828,29 @@ public class DescribeInstancesResponse extends AcsResponse {
 
 			public void setDedicatedHostName(String dedicatedHostName) {
 				this.dedicatedHostName = dedicatedHostName;
+			}
+		}
+
+		public static class EcsCapacityReservationAttr {
+
+			private String capacityReservationId;
+
+			private String capacityReservationPreference;
+
+			public String getCapacityReservationId() {
+				return this.capacityReservationId;
+			}
+
+			public void setCapacityReservationId(String capacityReservationId) {
+				this.capacityReservationId = capacityReservationId;
+			}
+
+			public String getCapacityReservationPreference() {
+				return this.capacityReservationPreference;
+			}
+
+			public void setCapacityReservationPreference(String capacityReservationPreference) {
+				this.capacityReservationPreference = capacityReservationPreference;
 			}
 		}
 	}

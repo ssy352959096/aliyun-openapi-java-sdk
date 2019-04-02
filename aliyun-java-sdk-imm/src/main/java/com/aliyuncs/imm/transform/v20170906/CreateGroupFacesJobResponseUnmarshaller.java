@@ -24,6 +24,7 @@ public class CreateGroupFacesJobResponseUnmarshaller {
 		
 		createGroupFacesJobResponse.setRequestId(context.stringValue("CreateGroupFacesJobResponse.RequestId"));
 		createGroupFacesJobResponse.setJobId(context.stringValue("CreateGroupFacesJobResponse.JobId"));
+		createGroupFacesJobResponse.setSetId(context.stringValue("CreateGroupFacesJobResponse.SetId"));
 		createGroupFacesJobResponse.setJobType(context.stringValue("CreateGroupFacesJobResponse.JobType"));
 	 
 	 	return createGroupFacesJobResponse;

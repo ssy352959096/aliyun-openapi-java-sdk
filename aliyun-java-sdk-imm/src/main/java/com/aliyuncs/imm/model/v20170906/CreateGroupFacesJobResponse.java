@@ -14,7 +14,6 @@
 
 package com.aliyuncs.imm.model.v20170906;
 
-import java.util.Map;
 import com.aliyuncs.AcsResponse;
 import com.aliyuncs.imm.transform.v20170906.CreateGroupFacesJobResponseUnmarshaller;
 import com.aliyuncs.transform.UnmarshallerContext;
@@ -28,6 +27,8 @@ public class CreateGroupFacesJobResponse extends AcsResponse {
 	private String requestId;
 
 	private String jobId;
+
+	private String setId;
 
 	private String jobType;
 
@@ -45,6 +46,14 @@ public class CreateGroupFacesJobResponse extends AcsResponse {
 
 	public void setJobId(String jobId) {
 		this.jobId = jobId;
+	}
+
+	public String getSetId() {
+		return this.setId;
+	}
+
+	public void setSetId(String setId) {
+		this.setId = setId;
 	}
 
 	public String getJobType() {

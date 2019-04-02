@@ -25,10 +25,10 @@ import com.aliyuncs.imm.model.v20170906.FindImagesByTagNamesResponse.Frames.Face
 import com.aliyuncs.imm.model.v20170906.FindImagesByTagNamesResponse.Frames.FacesItem.EmotionDetails;
 import com.aliyuncs.imm.model.v20170906.FindImagesByTagNamesResponse.Frames.FacesItem.FaceAttributes;
 import com.aliyuncs.imm.model.v20170906.FindImagesByTagNamesResponse.Frames.FacesItem.FaceAttributes.FaceBoundary;
+import com.aliyuncs.imm.model.v20170906.FindImagesByTagNamesResponse.Frames.FacesItem.FaceAttributes.HeadPose;
 import com.aliyuncs.imm.model.v20170906.FindImagesByTagNamesResponse.Frames.OCRItem;
 import com.aliyuncs.imm.model.v20170906.FindImagesByTagNamesResponse.Frames.OCRItem.OCRBoundary;
 import com.aliyuncs.imm.model.v20170906.FindImagesByTagNamesResponse.Frames.TagsItem;
-import java.util.Map;
 import com.aliyuncs.transform.UnmarshallerContext;
 
 
@@ -71,6 +71,9 @@ public class FindImagesByTagNamesResponseUnmarshaller {
 			frames.setCelebrityModifyTime(context.stringValue("FindImagesByTagNamesResponse.Images["+ i +"].CelebrityModifyTime"));
 			frames.setCelebrityFailReason(context.stringValue("FindImagesByTagNamesResponse.Images["+ i +"].CelebrityFailReason"));
 			frames.setTagsStatus(context.stringValue("FindImagesByTagNamesResponse.Images["+ i +"].TagsStatus"));
+			frames.setExternalId(context.stringValue("FindImagesByTagNamesResponse.Images["+ i +"].ExternalId"));
+			frames.setRemarksC(context.stringValue("FindImagesByTagNamesResponse.Images["+ i +"].RemarksC"));
+			frames.setRemarksD(context.stringValue("FindImagesByTagNamesResponse.Images["+ i +"].RemarksD"));
 
 			List<FacesItem> faces = new ArrayList<FacesItem>();
 			for (int j = 0; j < context.lengthValue("FindImagesByTagNamesResponse.Images["+ i +"].Faces.Length"); j++) {
@@ -83,6 +86,8 @@ public class FindImagesByTagNamesResponseUnmarshaller {
 				facesItem.setEmotion(context.stringValue("FindImagesByTagNamesResponse.Images["+ i +"].Faces["+ j +"].Emotion"));
 				facesItem.setFaceId(context.stringValue("FindImagesByTagNamesResponse.Images["+ i +"].Faces["+ j +"].FaceId"));
 				facesItem.setEmotionConfidence(context.floatValue("FindImagesByTagNamesResponse.Images["+ i +"].Faces["+ j +"].EmotionConfidence"));
+				facesItem.setGroupId(context.stringValue("FindImagesByTagNamesResponse.Images["+ i +"].Faces["+ j +"].GroupId"));
+				facesItem.setFaceQuality(context.floatValue("FindImagesByTagNamesResponse.Images["+ i +"].Faces["+ j +"].FaceQuality"));
 
 				EmotionDetails emotionDetails = new EmotionDetails();
 				emotionDetails.setSAD(context.floatValue("FindImagesByTagNamesResponse.Images["+ i +"].Faces["+ j +"].EmotionDetails.SAD"));
@@ -110,6 +115,12 @@ public class FindImagesByTagNamesResponseUnmarshaller {
 				faceBoundary.setWidth(context.integerValue("FindImagesByTagNamesResponse.Images["+ i +"].Faces["+ j +"].FaceAttributes.FaceBoundary.Width"));
 				faceBoundary.setLeft(context.integerValue("FindImagesByTagNamesResponse.Images["+ i +"].Faces["+ j +"].FaceAttributes.FaceBoundary.Left"));
 				faceAttributes.setFaceBoundary(faceBoundary);
+
+				HeadPose headPose = new HeadPose();
+				headPose.setPitch(context.floatValue("FindImagesByTagNamesResponse.Images["+ i +"].Faces["+ j +"].FaceAttributes.HeadPose.Pitch"));
+				headPose.setRoll(context.floatValue("FindImagesByTagNamesResponse.Images["+ i +"].Faces["+ j +"].FaceAttributes.HeadPose.Roll"));
+				headPose.setYaw(context.floatValue("FindImagesByTagNamesResponse.Images["+ i +"].Faces["+ j +"].FaceAttributes.HeadPose.Yaw"));
+				faceAttributes.setHeadPose(headPose);
 				facesItem.setFaceAttributes(faceAttributes);
 
 				faces.add(facesItem);

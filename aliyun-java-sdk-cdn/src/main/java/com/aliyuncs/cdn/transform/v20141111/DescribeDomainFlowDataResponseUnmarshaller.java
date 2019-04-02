@@ -19,7 +19,6 @@ import java.util.List;
 
 import com.aliyuncs.cdn.model.v20141111.DescribeDomainFlowDataResponse;
 import com.aliyuncs.cdn.model.v20141111.DescribeDomainFlowDataResponse.DataModule;
-import java.util.Map;
 import com.aliyuncs.transform.UnmarshallerContext;
 
 
@@ -29,9 +28,9 @@ public class DescribeDomainFlowDataResponseUnmarshaller {
 		
 		describeDomainFlowDataResponse.setRequestId(context.stringValue("DescribeDomainFlowDataResponse.RequestId"));
 		describeDomainFlowDataResponse.setDomainName(context.stringValue("DescribeDomainFlowDataResponse.DomainName"));
-		describeDomainFlowDataResponse.setDataInterval(context.stringValue("DescribeDomainFlowDataResponse.DataInterval"));
 		describeDomainFlowDataResponse.setStartTime(context.stringValue("DescribeDomainFlowDataResponse.StartTime"));
 		describeDomainFlowDataResponse.setEndTime(context.stringValue("DescribeDomainFlowDataResponse.EndTime"));
+		describeDomainFlowDataResponse.setDataInterval(context.stringValue("DescribeDomainFlowDataResponse.DataInterval"));
 
 		List<DataModule> flowDataPerInterval = new ArrayList<DataModule>();
 		for (int i = 0; i < context.lengthValue("DescribeDomainFlowDataResponse.FlowDataPerInterval.Length"); i++) {

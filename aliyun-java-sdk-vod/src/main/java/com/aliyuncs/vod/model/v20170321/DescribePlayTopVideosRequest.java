@@ -26,35 +26,13 @@ public class DescribePlayTopVideosRequest extends RpcAcsRequest<DescribePlayTopV
 		super("vod", "2017-03-21", "DescribePlayTopVideos", "vod");
 	}
 
-	private String bizDate;
-
-	private Long pageNo;
-
 	private Long pageSize;
 
 	private Long ownerId;
 
-	public String getBizDate() {
-		return this.bizDate;
-	}
+	private String bizDate;
 
-	public void setBizDate(String bizDate) {
-		this.bizDate = bizDate;
-		if(bizDate != null){
-			putQueryParameter("BizDate", bizDate);
-		}
-	}
-
-	public Long getPageNo() {
-		return this.pageNo;
-	}
-
-	public void setPageNo(Long pageNo) {
-		this.pageNo = pageNo;
-		if(pageNo != null){
-			putQueryParameter("PageNo", pageNo.toString());
-		}
-	}
+	private Long pageNo;
 
 	public Long getPageSize() {
 		return this.pageSize;
@@ -75,6 +53,28 @@ public class DescribePlayTopVideosRequest extends RpcAcsRequest<DescribePlayTopV
 		this.ownerId = ownerId;
 		if(ownerId != null){
 			putQueryParameter("OwnerId", ownerId.toString());
+		}
+	}
+
+	public String getBizDate() {
+		return this.bizDate;
+	}
+
+	public void setBizDate(String bizDate) {
+		this.bizDate = bizDate;
+		if(bizDate != null){
+			putQueryParameter("BizDate", bizDate);
+		}
+	}
+
+	public Long getPageNo() {
+		return this.pageNo;
+	}
+
+	public void setPageNo(Long pageNo) {
+		this.pageNo = pageNo;
+		if(pageNo != null){
+			putQueryParameter("PageNo", pageNo.toString());
 		}
 	}
 

@@ -15,7 +15,6 @@
 package com.aliyuncs.ecs.model.v20140526;
 
 import java.util.List;
-import java.util.Map;
 import com.aliyuncs.AcsResponse;
 import com.aliyuncs.ecs.transform.v20140526.DescribeInstanceRamRoleResponseUnmarshaller;
 import com.aliyuncs.transform.UnmarshallerContext;
@@ -42,10 +41,26 @@ public class DescribeInstanceRamRoleResponse extends AcsResponse {
 		this.requestId = requestId;
 	}
 
+	public String getBizRegionId() {
+		return this.regionId;
+	}
+
+	public void setBizRegionId(String regionId) {
+		this.regionId = regionId;
+	}
+
+	/**
+	 * @deprecated use getBizRegionId instead of this.
+	 */
+	@Deprecated
 	public String getRegionId() {
 		return this.regionId;
 	}
 
+	/**
+	 * @deprecated use setBizRegionId instead of this.
+	 */
+	@Deprecated
 	public void setRegionId(String regionId) {
 		this.regionId = regionId;
 	}

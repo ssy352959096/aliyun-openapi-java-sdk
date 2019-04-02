@@ -14,7 +14,6 @@
 
 package com.aliyuncs.ecs.model.v20140526;
 
-import java.util.Map;
 import com.aliyuncs.AcsResponse;
 import com.aliyuncs.ecs.transform.v20140526.CreateKeyPairResponseUnmarshaller;
 import com.aliyuncs.transform.UnmarshallerContext;
@@ -26,6 +25,8 @@ import com.aliyuncs.transform.UnmarshallerContext;
 public class CreateKeyPairResponse extends AcsResponse {
 
 	private String requestId;
+
+	private String keyPairId;
 
 	private String keyPairName;
 
@@ -39,6 +40,14 @@ public class CreateKeyPairResponse extends AcsResponse {
 
 	public void setRequestId(String requestId) {
 		this.requestId = requestId;
+	}
+
+	public String getKeyPairId() {
+		return this.keyPairId;
+	}
+
+	public void setKeyPairId(String keyPairId) {
+		this.keyPairId = keyPairId;
 	}
 
 	public String getKeyPairName() {

@@ -21,7 +21,6 @@ import com.aliyuncs.ecs.model.v20140526.DescribeAvailableResourceResponse;
 import com.aliyuncs.ecs.model.v20140526.DescribeAvailableResourceResponse.AvailableZone;
 import com.aliyuncs.ecs.model.v20140526.DescribeAvailableResourceResponse.AvailableZone.AvailableResource;
 import com.aliyuncs.ecs.model.v20140526.DescribeAvailableResourceResponse.AvailableZone.AvailableResource.SupportedResource;
-import java.util.Map;
 import com.aliyuncs.transform.UnmarshallerContext;
 
 
@@ -37,6 +36,7 @@ public class DescribeAvailableResourceResponseUnmarshaller {
 			availableZone.setRegionId(context.stringValue("DescribeAvailableResourceResponse.AvailableZones["+ i +"].RegionId"));
 			availableZone.setZoneId(context.stringValue("DescribeAvailableResourceResponse.AvailableZones["+ i +"].ZoneId"));
 			availableZone.setStatus(context.stringValue("DescribeAvailableResourceResponse.AvailableZones["+ i +"].Status"));
+			availableZone.setStatusCategory(context.stringValue("DescribeAvailableResourceResponse.AvailableZones["+ i +"].StatusCategory"));
 
 			List<AvailableResource> availableResources = new ArrayList<AvailableResource>();
 			for (int j = 0; j < context.lengthValue("DescribeAvailableResourceResponse.AvailableZones["+ i +"].AvailableResources.Length"); j++) {
@@ -48,6 +48,7 @@ public class DescribeAvailableResourceResponseUnmarshaller {
 					SupportedResource supportedResource = new SupportedResource();
 					supportedResource.setValue(context.stringValue("DescribeAvailableResourceResponse.AvailableZones["+ i +"].AvailableResources["+ j +"].SupportedResources["+ k +"].Value"));
 					supportedResource.setStatus(context.stringValue("DescribeAvailableResourceResponse.AvailableZones["+ i +"].AvailableResources["+ j +"].SupportedResources["+ k +"].Status"));
+					supportedResource.setStatusCategory(context.stringValue("DescribeAvailableResourceResponse.AvailableZones["+ i +"].AvailableResources["+ j +"].SupportedResources["+ k +"].StatusCategory"));
 					supportedResource.setMin(context.integerValue("DescribeAvailableResourceResponse.AvailableZones["+ i +"].AvailableResources["+ j +"].SupportedResources["+ k +"].Min"));
 					supportedResource.setMax(context.integerValue("DescribeAvailableResourceResponse.AvailableZones["+ i +"].AvailableResources["+ j +"].SupportedResources["+ k +"].Max"));
 					supportedResource.setUnit(context.stringValue("DescribeAvailableResourceResponse.AvailableZones["+ i +"].AvailableResources["+ j +"].SupportedResources["+ k +"].Unit"));

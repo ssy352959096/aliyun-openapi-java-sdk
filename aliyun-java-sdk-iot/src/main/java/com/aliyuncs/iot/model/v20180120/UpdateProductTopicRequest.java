@@ -23,10 +23,12 @@ import com.aliyuncs.RpcAcsRequest;
 public class UpdateProductTopicRequest extends RpcAcsRequest<UpdateProductTopicResponse> {
 	
 	public UpdateProductTopicRequest() {
-		super("Iot", "2018-01-20", "UpdateProductTopic");
+		super("Iot", "2018-01-20", "UpdateProductTopic", "iot");
 	}
 
 	private String topicId;
+
+	private String iotInstanceId;
 
 	private String operation;
 
@@ -42,6 +44,17 @@ public class UpdateProductTopicRequest extends RpcAcsRequest<UpdateProductTopicR
 		this.topicId = topicId;
 		if(topicId != null){
 			putQueryParameter("TopicId", topicId);
+		}
+	}
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
 		}
 	}
 

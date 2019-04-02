@@ -21,7 +21,6 @@ import com.aliyuncs.vod.model.v20170321.GetPlayInfoResponse;
 import com.aliyuncs.vod.model.v20170321.GetPlayInfoResponse.PlayInfo;
 import com.aliyuncs.vod.model.v20170321.GetPlayInfoResponse.VideoBase;
 import com.aliyuncs.vod.model.v20170321.GetPlayInfoResponse.VideoBase.Thumbnail;
-import java.util.Map;
 import com.aliyuncs.transform.UnmarshallerContext;
 
 
@@ -76,6 +75,7 @@ public class GetPlayInfoResponseUnmarshaller {
 			playInfo.setCreationTime(context.stringValue("GetPlayInfoResponse.PlayInfoList["+ i +"].CreationTime"));
 			playInfo.setModificationTime(context.stringValue("GetPlayInfoResponse.PlayInfoList["+ i +"].ModificationTime"));
 			playInfo.setEncryptType(context.stringValue("GetPlayInfoResponse.PlayInfoList["+ i +"].EncryptType"));
+			playInfo.setNarrowBandType(context.stringValue("GetPlayInfoResponse.PlayInfoList["+ i +"].NarrowBandType"));
 
 			playInfoList.add(playInfo);
 		}

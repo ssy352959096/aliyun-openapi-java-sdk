@@ -15,7 +15,6 @@
 package com.aliyuncs.iot.model.v20180120;
 
 import java.util.List;
-import java.util.Map;
 import com.aliyuncs.AcsResponse;
 import com.aliyuncs.iot.transform.v20180120.QueryPageByApplyIdResponseUnmarshaller;
 import com.aliyuncs.transform.UnmarshallerContext;
@@ -124,6 +123,8 @@ public class QueryPageByApplyIdResponse extends AcsResponse {
 
 		private String deviceSecret;
 
+		private String iotId;
+
 		public String getDeviceId() {
 			return this.deviceId;
 		}
@@ -146,6 +147,14 @@ public class QueryPageByApplyIdResponse extends AcsResponse {
 
 		public void setDeviceSecret(String deviceSecret) {
 			this.deviceSecret = deviceSecret;
+		}
+
+		public String getIotId() {
+			return this.iotId;
+		}
+
+		public void setIotId(String iotId) {
+			this.iotId = iotId;
 		}
 	}
 

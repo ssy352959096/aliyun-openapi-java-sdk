@@ -24,12 +24,14 @@ import java.util.List;
 public class InvokeThingsServiceRequest extends RpcAcsRequest<InvokeThingsServiceResponse> {
 	
 	public InvokeThingsServiceRequest() {
-		super("Iot", "2018-01-20", "InvokeThingsService");
+		super("Iot", "2018-01-20", "InvokeThingsService", "iot");
 	}
 
 	private String args;
 
 	private String identifier;
+
+	private String iotInstanceId;
 
 	private List<String> deviceNames;
 
@@ -54,6 +56,17 @@ public class InvokeThingsServiceRequest extends RpcAcsRequest<InvokeThingsServic
 		this.identifier = identifier;
 		if(identifier != null){
 			putQueryParameter("Identifier", identifier);
+		}
+	}
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
 		}
 	}
 

@@ -24,14 +24,27 @@ import java.util.List;
 public class QueryDeviceByTagsRequest extends RpcAcsRequest<QueryDeviceByTagsResponse> {
 	
 	public QueryDeviceByTagsRequest() {
-		super("Iot", "2018-01-20", "QueryDeviceByTags");
+		super("Iot", "2018-01-20", "QueryDeviceByTags", "iot");
 	}
+
+	private String iotInstanceId;
 
 	private Integer pageSize;
 
 	private Integer currentPage;
 
 	private List<Tag> tags;
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
+		}
+	}
 
 	public Integer getPageSize() {
 		return this.pageSize;

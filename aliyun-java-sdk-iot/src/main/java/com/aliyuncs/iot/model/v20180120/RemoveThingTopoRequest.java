@@ -23,10 +23,12 @@ import com.aliyuncs.RpcAcsRequest;
 public class RemoveThingTopoRequest extends RpcAcsRequest<RemoveThingTopoResponse> {
 	
 	public RemoveThingTopoRequest() {
-		super("Iot", "2018-01-20", "RemoveThingTopo");
+		super("Iot", "2018-01-20", "RemoveThingTopo", "iot");
 	}
 
 	private String iotId;
+
+	private String iotInstanceId;
 
 	private String deviceName;
 
@@ -40,6 +42,17 @@ public class RemoveThingTopoRequest extends RpcAcsRequest<RemoveThingTopoRespons
 		this.iotId = iotId;
 		if(iotId != null){
 			putQueryParameter("IotId", iotId);
+		}
+	}
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
 		}
 	}
 

@@ -15,7 +15,6 @@
 package com.aliyuncs.ecs.model.v20140526;
 
 import java.util.List;
-import java.util.Map;
 import com.aliyuncs.AcsResponse;
 import com.aliyuncs.ecs.transform.v20140526.DescribeInstanceTypesResponseUnmarshaller;
 import com.aliyuncs.transform.UnmarshallerContext;
@@ -71,6 +70,8 @@ public class DescribeInstanceTypesResponse extends AcsResponse {
 		private Integer baselineCredit;
 
 		private Integer eniQuantity;
+
+		private Integer eniPrivateIpAddressQuantity;
 
 		private Integer instanceBandwidthRx;
 
@@ -176,6 +177,14 @@ public class DescribeInstanceTypesResponse extends AcsResponse {
 
 		public void setEniQuantity(Integer eniQuantity) {
 			this.eniQuantity = eniQuantity;
+		}
+
+		public Integer getEniPrivateIpAddressQuantity() {
+			return this.eniPrivateIpAddressQuantity;
+		}
+
+		public void setEniPrivateIpAddressQuantity(Integer eniPrivateIpAddressQuantity) {
+			this.eniPrivateIpAddressQuantity = eniPrivateIpAddressQuantity;
 		}
 
 		public Integer getInstanceBandwidthRx() {

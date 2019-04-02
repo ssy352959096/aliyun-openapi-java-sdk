@@ -26,17 +26,32 @@ public class StartInstanceRequest extends RpcAcsRequest<StartInstanceResponse> {
 		super("Ecs", "2014-05-26", "StartInstance", "ecs");
 	}
 
+	private String sourceRegionId;
+
 	private Boolean initLocalDisk;
 
 	private Long resourceOwnerId;
 
 	private String instanceId;
 
+	private Boolean dryRun;
+
 	private String resourceOwnerAccount;
 
 	private String ownerAccount;
 
 	private Long ownerId;
+
+	public String getSourceRegionId() {
+		return this.sourceRegionId;
+	}
+
+	public void setSourceRegionId(String sourceRegionId) {
+		this.sourceRegionId = sourceRegionId;
+		if(sourceRegionId != null){
+			putQueryParameter("SourceRegionId", sourceRegionId);
+		}
+	}
 
 	public Boolean getInitLocalDisk() {
 		return this.initLocalDisk;
@@ -68,6 +83,17 @@ public class StartInstanceRequest extends RpcAcsRequest<StartInstanceResponse> {
 		this.instanceId = instanceId;
 		if(instanceId != null){
 			putQueryParameter("InstanceId", instanceId);
+		}
+	}
+
+	public Boolean getDryRun() {
+		return this.dryRun;
+	}
+
+	public void setDryRun(Boolean dryRun) {
+		this.dryRun = dryRun;
+		if(dryRun != null){
+			putQueryParameter("DryRun", dryRun.toString());
 		}
 	}
 

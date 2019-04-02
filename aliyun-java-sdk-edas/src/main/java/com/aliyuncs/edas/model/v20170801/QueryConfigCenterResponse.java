@@ -14,7 +14,6 @@
 
 package com.aliyuncs.edas.model.v20170801;
 
-import java.util.Map;
 import com.aliyuncs.AcsResponse;
 import com.aliyuncs.edas.transform.v20170801.QueryConfigCenterResponseUnmarshaller;
 import com.aliyuncs.transform.UnmarshallerContext;
@@ -75,6 +74,8 @@ public class QueryConfigCenterResponse extends AcsResponse {
 
 		private String id;
 
+		private String appName;
+
 		public String getContent() {
 			return this.content;
 		}
@@ -105,6 +106,14 @@ public class QueryConfigCenterResponse extends AcsResponse {
 
 		public void setId(String id) {
 			this.id = id;
+		}
+
+		public String getAppName() {
+			return this.appName;
+		}
+
+		public void setAppName(String appName) {
+			this.appName = appName;
 		}
 	}
 

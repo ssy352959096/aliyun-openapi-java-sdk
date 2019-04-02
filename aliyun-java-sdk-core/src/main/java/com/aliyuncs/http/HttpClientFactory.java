@@ -1,15 +1,12 @@
 package com.aliyuncs.http;
 
+import com.aliyuncs.http.clients.ApacheHttpClient;
 import com.aliyuncs.http.clients.CompatibleUrlConnClient;
 import com.aliyuncs.profile.IClientProfile;
 import com.aliyuncs.utils.StringUtils;
 
 import java.lang.reflect.Constructor;
 
-/**
- * @author VK.Gao
- * @date 2018/03/28
- */
 public class HttpClientFactory {
 
     public static String HTTP_CLIENT_IMPL_KEY = "aliyuncs.sdk.httpclient";
@@ -38,6 +35,11 @@ public class HttpClientFactory {
             Class httpClientClass = Class.forName(customClientClassName);
             if (!IHttpClient.class.isAssignableFrom(httpClientClass)) {
                 throw new IllegalStateException(String.format("%s is not assignable from com.aliyuncs.http.IHttpClient", customClientClassName));
+            }
+            if (ApacheHttpClient.class.equals(httpClientClass)) {
+                IHttpClient client = ApacheHttpClient.getInstance();
+                client.init(clientConfig);
+                return client;
             }
             Constructor<? extends IHttpClient> constructor = httpClientClass.getConstructor(HttpClientConfig.class);
             return constructor.newInstance(clientConfig);

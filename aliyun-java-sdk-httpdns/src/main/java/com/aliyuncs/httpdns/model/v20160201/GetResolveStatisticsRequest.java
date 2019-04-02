@@ -11,6 +11,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package com.aliyuncs.httpdns.model.v20160201;
 
 import com.aliyuncs.RpcAcsRequest;
@@ -22,16 +23,38 @@ import com.aliyuncs.RpcAcsRequest;
 public class GetResolveStatisticsRequest extends RpcAcsRequest<GetResolveStatisticsResponse> {
 	
 	public GetResolveStatisticsRequest() {
-		super("Httpdns", "2016-02-01", "GetResolveStatistics");
+		super("Httpdns", "2016-02-01", "GetResolveStatistics", "httpdns");
 	}
+
+	private String granularity;
+
+	private String protocolName;
 
 	private String domainName;
 
 	private Integer timeSpan;
 
-	private String protocolName;
+	public String getGranularity() {
+		return this.granularity;
+	}
 
-	private String granularity;
+	public void setGranularity(String granularity) {
+		this.granularity = granularity;
+		if(granularity != null){
+			putQueryParameter("Granularity", granularity);
+		}
+	}
+
+	public String getProtocolName() {
+		return this.protocolName;
+	}
+
+	public void setProtocolName(String protocolName) {
+		this.protocolName = protocolName;
+		if(protocolName != null){
+			putQueryParameter("ProtocolName", protocolName);
+		}
+	}
 
 	public String getDomainName() {
 		return this.domainName;
@@ -52,28 +75,6 @@ public class GetResolveStatisticsRequest extends RpcAcsRequest<GetResolveStatist
 		this.timeSpan = timeSpan;
 		if(timeSpan != null){
 			putQueryParameter("TimeSpan", timeSpan.toString());
-		}
-	}
-
-	public String getProtocolName() {
-		return this.protocolName;
-	}
-
-	public void setProtocolName(String protocolName) {
-		this.protocolName = protocolName;
-		if(protocolName != null){
-			putQueryParameter("ProtocolName", protocolName);
-		}
-	}
-
-	public String getGranularity() {
-		return this.granularity;
-	}
-
-	public void setGranularity(String granularity) {
-		this.granularity = granularity;
-		if(granularity != null){
-			putQueryParameter("Granularity", granularity);
 		}
 	}
 

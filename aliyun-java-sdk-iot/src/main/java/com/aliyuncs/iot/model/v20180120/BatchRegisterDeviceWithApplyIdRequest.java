@@ -23,10 +23,12 @@ import com.aliyuncs.RpcAcsRequest;
 public class BatchRegisterDeviceWithApplyIdRequest extends RpcAcsRequest<BatchRegisterDeviceWithApplyIdResponse> {
 	
 	public BatchRegisterDeviceWithApplyIdRequest() {
-		super("Iot", "2018-01-20", "BatchRegisterDeviceWithApplyId");
+		super("Iot", "2018-01-20", "BatchRegisterDeviceWithApplyId", "iot");
 	}
 
 	private Long applyId;
+
+	private String iotInstanceId;
 
 	private String productKey;
 
@@ -38,6 +40,17 @@ public class BatchRegisterDeviceWithApplyIdRequest extends RpcAcsRequest<BatchRe
 		this.applyId = applyId;
 		if(applyId != null){
 			putQueryParameter("ApplyId", applyId.toString());
+		}
+	}
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
 		}
 	}
 

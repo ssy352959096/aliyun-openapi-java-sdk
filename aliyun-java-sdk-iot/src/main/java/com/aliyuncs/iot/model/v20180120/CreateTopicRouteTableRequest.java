@@ -24,10 +24,12 @@ import java.util.List;
 public class CreateTopicRouteTableRequest extends RpcAcsRequest<CreateTopicRouteTableResponse> {
 	
 	public CreateTopicRouteTableRequest() {
-		super("Iot", "2018-01-20", "CreateTopicRouteTable");
+		super("Iot", "2018-01-20", "CreateTopicRouteTable", "iot");
 	}
 
 	private List<String> dstTopics;
+
+	private String iotInstanceId;
 
 	private String srcTopic;
 
@@ -42,6 +44,17 @@ public class CreateTopicRouteTableRequest extends RpcAcsRequest<CreateTopicRoute
 				putQueryParameter("DstTopic." + (i + 1) , dstTopics.get(i));
 			}
 		}	
+	}
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
+		}
 	}
 
 	public String getSrcTopic() {

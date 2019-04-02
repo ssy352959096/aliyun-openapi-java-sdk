@@ -25,10 +25,10 @@ import com.aliyuncs.imm.model.v20170906.ListImagesResponse.ImagesItem.FacesItem;
 import com.aliyuncs.imm.model.v20170906.ListImagesResponse.ImagesItem.FacesItem.EmotionDetails;
 import com.aliyuncs.imm.model.v20170906.ListImagesResponse.ImagesItem.FacesItem.FaceAttributes;
 import com.aliyuncs.imm.model.v20170906.ListImagesResponse.ImagesItem.FacesItem.FaceAttributes.FaceBoundary;
+import com.aliyuncs.imm.model.v20170906.ListImagesResponse.ImagesItem.FacesItem.FaceAttributes.HeadPose;
 import com.aliyuncs.imm.model.v20170906.ListImagesResponse.ImagesItem.OCRItem;
 import com.aliyuncs.imm.model.v20170906.ListImagesResponse.ImagesItem.OCRItem.OCRBoundary;
 import com.aliyuncs.imm.model.v20170906.ListImagesResponse.ImagesItem.TagsItem;
-import java.util.Map;
 import com.aliyuncs.transform.UnmarshallerContext;
 
 
@@ -71,6 +71,9 @@ public class ListImagesResponseUnmarshaller {
 			imagesItem.setCelebrityModifyTime(context.stringValue("ListImagesResponse.Images["+ i +"].CelebrityModifyTime"));
 			imagesItem.setCelebrityFailReason(context.stringValue("ListImagesResponse.Images["+ i +"].CelebrityFailReason"));
 			imagesItem.setTagsStatus(context.stringValue("ListImagesResponse.Images["+ i +"].TagsStatus"));
+			imagesItem.setRemarksC(context.stringValue("ListImagesResponse.Images["+ i +"].RemarksC"));
+			imagesItem.setRemarksD(context.stringValue("ListImagesResponse.Images["+ i +"].RemarksD"));
+			imagesItem.setExternalId(context.stringValue("ListImagesResponse.Images["+ i +"].ExternalId"));
 
 			List<FacesItem> faces = new ArrayList<FacesItem>();
 			for (int j = 0; j < context.lengthValue("ListImagesResponse.Images["+ i +"].Faces.Length"); j++) {
@@ -83,6 +86,8 @@ public class ListImagesResponseUnmarshaller {
 				facesItem.setEmotion(context.stringValue("ListImagesResponse.Images["+ i +"].Faces["+ j +"].Emotion"));
 				facesItem.setFaceId(context.stringValue("ListImagesResponse.Images["+ i +"].Faces["+ j +"].FaceId"));
 				facesItem.setEmotionConfidence(context.floatValue("ListImagesResponse.Images["+ i +"].Faces["+ j +"].EmotionConfidence"));
+				facesItem.setGroupId(context.stringValue("ListImagesResponse.Images["+ i +"].Faces["+ j +"].GroupId"));
+				facesItem.setFaceQuality(context.floatValue("ListImagesResponse.Images["+ i +"].Faces["+ j +"].FaceQuality"));
 
 				EmotionDetails emotionDetails = new EmotionDetails();
 				emotionDetails.setSAD(context.floatValue("ListImagesResponse.Images["+ i +"].Faces["+ j +"].EmotionDetails.SAD"));
@@ -110,6 +115,12 @@ public class ListImagesResponseUnmarshaller {
 				faceBoundary.setWidth(context.integerValue("ListImagesResponse.Images["+ i +"].Faces["+ j +"].FaceAttributes.FaceBoundary.Width"));
 				faceBoundary.setLeft(context.integerValue("ListImagesResponse.Images["+ i +"].Faces["+ j +"].FaceAttributes.FaceBoundary.Left"));
 				faceAttributes.setFaceBoundary(faceBoundary);
+
+				HeadPose headPose = new HeadPose();
+				headPose.setPitch(context.floatValue("ListImagesResponse.Images["+ i +"].Faces["+ j +"].FaceAttributes.HeadPose.Pitch"));
+				headPose.setRoll(context.floatValue("ListImagesResponse.Images["+ i +"].Faces["+ j +"].FaceAttributes.HeadPose.Roll"));
+				headPose.setYaw(context.floatValue("ListImagesResponse.Images["+ i +"].Faces["+ j +"].FaceAttributes.HeadPose.Yaw"));
+				faceAttributes.setHeadPose(headPose);
 				facesItem.setFaceAttributes(faceAttributes);
 
 				faces.add(facesItem);

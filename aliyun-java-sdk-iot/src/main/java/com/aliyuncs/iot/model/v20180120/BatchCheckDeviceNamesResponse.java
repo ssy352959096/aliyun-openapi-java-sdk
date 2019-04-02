@@ -14,7 +14,7 @@
 
 package com.aliyuncs.iot.model.v20180120;
 
-import java.util.Map;
+import java.util.List;
 import com.aliyuncs.AcsResponse;
 import com.aliyuncs.iot.transform.v20180120.BatchCheckDeviceNamesResponseUnmarshaller;
 import com.aliyuncs.transform.UnmarshallerContext;
@@ -79,12 +79,22 @@ public class BatchCheckDeviceNamesResponse extends AcsResponse {
 
 		private Long applyId;
 
+		private List<String> invalidDeviceNameList;
+
 		public Long getApplyId() {
 			return this.applyId;
 		}
 
 		public void setApplyId(Long applyId) {
 			this.applyId = applyId;
+		}
+
+		public List<String> getInvalidDeviceNameList() {
+			return this.invalidDeviceNameList;
+		}
+
+		public void setInvalidDeviceNameList(List<String> invalidDeviceNameList) {
+			this.invalidDeviceNameList = invalidDeviceNameList;
 		}
 	}
 

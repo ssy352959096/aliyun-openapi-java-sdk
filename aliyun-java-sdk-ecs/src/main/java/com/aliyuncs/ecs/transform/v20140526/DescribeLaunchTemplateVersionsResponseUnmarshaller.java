@@ -23,7 +23,6 @@ import com.aliyuncs.ecs.model.v20140526.DescribeLaunchTemplateVersionsResponse.L
 import com.aliyuncs.ecs.model.v20140526.DescribeLaunchTemplateVersionsResponse.LaunchTemplateVersionSet.LaunchTemplateData.DataDisk;
 import com.aliyuncs.ecs.model.v20140526.DescribeLaunchTemplateVersionsResponse.LaunchTemplateVersionSet.LaunchTemplateData.InstanceTag;
 import com.aliyuncs.ecs.model.v20140526.DescribeLaunchTemplateVersionsResponse.LaunchTemplateVersionSet.LaunchTemplateData.NetworkInterface;
-import java.util.Map;
 import com.aliyuncs.transform.UnmarshallerContext;
 
 
@@ -51,6 +50,7 @@ public class DescribeLaunchTemplateVersionsResponseUnmarshaller {
 			LaunchTemplateData launchTemplateData = new LaunchTemplateData();
 			launchTemplateData.setImageId(context.stringValue("DescribeLaunchTemplateVersionsResponse.LaunchTemplateVersionSets["+ i +"].LaunchTemplateData.ImageId"));
 			launchTemplateData.setImageOwnerAlias(context.stringValue("DescribeLaunchTemplateVersionsResponse.LaunchTemplateVersionSets["+ i +"].LaunchTemplateData.ImageOwnerAlias"));
+			launchTemplateData.setPasswordInherit(context.booleanValue("DescribeLaunchTemplateVersionsResponse.LaunchTemplateVersionSets["+ i +"].LaunchTemplateData.PasswordInherit"));
 			launchTemplateData.setInstanceType(context.stringValue("DescribeLaunchTemplateVersionsResponse.LaunchTemplateVersionSets["+ i +"].LaunchTemplateData.InstanceType"));
 			launchTemplateData.setSecurityGroupId(context.stringValue("DescribeLaunchTemplateVersionsResponse.LaunchTemplateVersionSets["+ i +"].LaunchTemplateData.SecurityGroupId"));
 			launchTemplateData.setVpcId(context.stringValue("DescribeLaunchTemplateVersionsResponse.LaunchTemplateVersionSets["+ i +"].LaunchTemplateData.VpcId"));
@@ -92,6 +92,7 @@ public class DescribeLaunchTemplateVersionsResponseUnmarshaller {
 				dataDisk.setDiskName(context.stringValue("DescribeLaunchTemplateVersionsResponse.LaunchTemplateVersionSets["+ i +"].LaunchTemplateData.DataDisks["+ j +"].DiskName"));
 				dataDisk.setDescription(context.stringValue("DescribeLaunchTemplateVersionsResponse.LaunchTemplateVersionSets["+ i +"].LaunchTemplateData.DataDisks["+ j +"].Description"));
 				dataDisk.setDeleteWithInstance(context.booleanValue("DescribeLaunchTemplateVersionsResponse.LaunchTemplateVersionSets["+ i +"].LaunchTemplateData.DataDisks["+ j +"].DeleteWithInstance"));
+				dataDisk.setDevice(context.stringValue("DescribeLaunchTemplateVersionsResponse.LaunchTemplateVersionSets["+ i +"].LaunchTemplateData.DataDisks["+ j +"].Device"));
 
 				dataDisks.add(dataDisk);
 			}

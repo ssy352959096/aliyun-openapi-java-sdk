@@ -1,18 +1,15 @@
 package com.aliyuncs.auth;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.TimeZone;
-
 public class InstanceProfileCredentialsTest {
-    private static final Log log = LogFactory.getLog(InstanceProfileCredentialsTest.class);
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -44,14 +41,14 @@ public class InstanceProfileCredentialsTest {
     public void willSoonExpireTrue() {
 
         // expire after 9 minutes
-        long expirationLong = System.currentTimeMillis() + 1000 * 60 * 9;
+        long expirationLong = System.currentTimeMillis();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
         String expirationStr = sdf.format(new Date(expirationLong));
         String ak = "ak";
         String sk = "sk";
         String token = "token";
-        long duration = 6000L;
+        long duration = 3600L;
         InstanceProfileCredentials credentials = new InstanceProfileCredentials(ak, sk, token, expirationStr, duration);
         Assert.assertTrue(credentials.willSoonExpire());
     }
@@ -99,7 +96,7 @@ public class InstanceProfileCredentialsTest {
         String token = "token";
         long duration = 6000L;
         InstanceProfileCredentials credentials = new InstanceProfileCredentials(ak, sk, token, expirationStr, duration);
-        Assert.assertFalse(credentials.isExpired());
+        Assert.assertTrue(credentials.isExpired());
 
     }
 
@@ -113,7 +110,23 @@ public class InstanceProfileCredentialsTest {
         String ak = "ak";
         String sk = "sk";
         String token = "token";
-        long duration = 6000L;
+        long duration = 3600L;
+        InstanceProfileCredentials credentials = new InstanceProfileCredentials(ak, sk, token, expirationStr, duration);
+        credentials.setLastFailedRefreshTime();
+        Assert.assertFalse(credentials.shouldRefresh());
+    }
+
+    @Test
+    public void shouldRefreshTrue() {
+        // expire after 15 seconds
+        long expirationLong = System.currentTimeMillis() + 1000 * 15;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        sdf.setTimeZone(TimeZone.getTimeZone("GMT"));
+        String expirationStr = sdf.format(new Date(expirationLong));
+        String ak = "ak";
+        String sk = "sk";
+        String token = "token";
+        long duration = 3600L;
         InstanceProfileCredentials credentials = new InstanceProfileCredentials(ak, sk, token, expirationStr, duration);
         credentials.setLastFailedRefreshTime();
         Assert.assertFalse(credentials.shouldRefresh());

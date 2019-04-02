@@ -23,7 +23,7 @@ import com.aliyuncs.RpcAcsRequest;
 public class QueryRecordFileDownloadUrlRequest extends RpcAcsRequest<QueryRecordFileDownloadUrlResponse> {
 	
 	public QueryRecordFileDownloadUrlRequest() {
-		super("Dyplsapi", "2017-05-25", "QueryRecordFileDownloadUrl");
+		super("Dyplsapi", "2017-05-25", "QueryRecordFileDownloadUrl", "dyplsapi");
 	}
 
 	private String callId;

@@ -15,7 +15,6 @@
 package com.aliyuncs.ecs.model.v20140526;
 
 import java.util.List;
-import java.util.Map;
 import com.aliyuncs.AcsResponse;
 import com.aliyuncs.ecs.transform.v20140526.DescribeDedicatedHostTypesResponseUnmarshaller;
 import com.aliyuncs.transform.UnmarshallerContext;
@@ -54,7 +53,11 @@ public class DescribeDedicatedHostTypesResponse extends AcsResponse {
 
 		private Integer totalVcpus;
 
+		private Integer totalVgpus;
+
 		private Integer cores;
+
+		private Integer physicalGpus;
 
 		private Float memorySize;
 
@@ -64,7 +67,11 @@ public class DescribeDedicatedHostTypesResponse extends AcsResponse {
 
 		private String localStorageCategory;
 
+		private String gPUSpec;
+
 		private List<String> supportedInstanceTypeFamilies;
+
+		private List<String> supportedInstanceTypesList;
 
 		public String getDedicatedHostType() {
 			return this.dedicatedHostType;
@@ -90,12 +97,28 @@ public class DescribeDedicatedHostTypesResponse extends AcsResponse {
 			this.totalVcpus = totalVcpus;
 		}
 
+		public Integer getTotalVgpus() {
+			return this.totalVgpus;
+		}
+
+		public void setTotalVgpus(Integer totalVgpus) {
+			this.totalVgpus = totalVgpus;
+		}
+
 		public Integer getCores() {
 			return this.cores;
 		}
 
 		public void setCores(Integer cores) {
 			this.cores = cores;
+		}
+
+		public Integer getPhysicalGpus() {
+			return this.physicalGpus;
+		}
+
+		public void setPhysicalGpus(Integer physicalGpus) {
+			this.physicalGpus = physicalGpus;
 		}
 
 		public Float getMemorySize() {
@@ -130,12 +153,28 @@ public class DescribeDedicatedHostTypesResponse extends AcsResponse {
 			this.localStorageCategory = localStorageCategory;
 		}
 
+		public String getGPUSpec() {
+			return this.gPUSpec;
+		}
+
+		public void setGPUSpec(String gPUSpec) {
+			this.gPUSpec = gPUSpec;
+		}
+
 		public List<String> getSupportedInstanceTypeFamilies() {
 			return this.supportedInstanceTypeFamilies;
 		}
 
 		public void setSupportedInstanceTypeFamilies(List<String> supportedInstanceTypeFamilies) {
 			this.supportedInstanceTypeFamilies = supportedInstanceTypeFamilies;
+		}
+
+		public List<String> getSupportedInstanceTypesList() {
+			return this.supportedInstanceTypesList;
+		}
+
+		public void setSupportedInstanceTypesList(List<String> supportedInstanceTypesList) {
+			this.supportedInstanceTypesList = supportedInstanceTypesList;
 		}
 	}
 

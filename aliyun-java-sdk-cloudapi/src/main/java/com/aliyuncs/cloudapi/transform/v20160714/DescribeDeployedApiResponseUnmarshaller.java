@@ -40,11 +40,15 @@ public class DescribeDeployedApiResponseUnmarshaller {
 		describeDeployedApiResponse.setDescription(context.stringValue("DescribeDeployedApiResponse.Description"));
 		describeDeployedApiResponse.setVisibility(context.stringValue("DescribeDeployedApiResponse.Visibility"));
 		describeDeployedApiResponse.setAuthType(context.stringValue("DescribeDeployedApiResponse.AuthType"));
+		describeDeployedApiResponse.setDisableInternet(context.booleanValue("DescribeDeployedApiResponse.DisableInternet"));
+		describeDeployedApiResponse.setForceNonceCheck(context.booleanValue("DescribeDeployedApiResponse.ForceNonceCheck"));
+
 		describeDeployedApiResponse.setResultType(context.stringValue("DescribeDeployedApiResponse.ResultType"));
 		describeDeployedApiResponse.setResultSample(context.stringValue("DescribeDeployedApiResponse.ResultSample"));
 		describeDeployedApiResponse.setFailResultSample(context.stringValue("DescribeDeployedApiResponse.FailResultSample"));
 		describeDeployedApiResponse.setDeployedTime(context.stringValue("DescribeDeployedApiResponse.DeployedTime"));
 		describeDeployedApiResponse.setAllowSignatureMethod(context.stringValue("DescribeDeployedApiResponse.AllowSignatureMethod"));
+		describeDeployedApiResponse.setResultBodyModel(context.stringValue("DescribeDeployedApiResponse.ResultBodyModel"));
 
 		RequestConfig requestConfig = new RequestConfig();
 		requestConfig.setRequestProtocol(context.stringValue("DescribeDeployedApiResponse.RequestConfig.RequestProtocol"));
@@ -53,6 +57,7 @@ public class DescribeDeployedApiResponseUnmarshaller {
 		requestConfig.setBodyFormat(context.stringValue("DescribeDeployedApiResponse.RequestConfig.BodyFormat"));
 		requestConfig.setPostBodyDescription(context.stringValue("DescribeDeployedApiResponse.RequestConfig.PostBodyDescription"));
 		requestConfig.setRequestMode(context.stringValue("DescribeDeployedApiResponse.RequestConfig.RequestMode"));
+		requestConfig.setBodyModel(context.stringValue("DescribeDeployedApiResponse.RequestConfig.BodyModel"));
 		describeDeployedApiResponse.setRequestConfig(requestConfig);
 
 		ServiceConfig serviceConfig = new ServiceConfig();
@@ -69,6 +74,24 @@ public class DescribeDeployedApiResponseUnmarshaller {
         vpcConfig.setInstanceId(context.stringValue("DescribeDeployedApiResponse.ServiceConfig.VpcConfig.InstanceId"));
         vpcConfig.setPort(context.integerValue("DescribeDeployedApiResponse.ServiceConfig.VpcConfig.Port"));
         serviceConfig.setVpcConfig(vpcConfig);
+        FunctionComputeConfig functionComputeConfig = new FunctionComputeConfig();
+        functionComputeConfig.setFcRegionId("DescribeDeployedApiResponse.ServiceConfig.FunctionComputeConfig.RegionId");
+        functionComputeConfig.setFunctionName("DescribeDeployedApiResponse.ServiceConfig.FunctionComputeConfig.FunctionName");
+        functionComputeConfig.setServiceName("DescribeDeployedApiResponse.ServiceConfig.FunctionComputeConfig.ServiceName");
+        functionComputeConfig.setRoleArn("DescribeDeployedApiResponse.ServiceConfig.FunctionComputeConfig.RoleArn");
+        serviceConfig.setFunctionComputeConfig(functionComputeConfig);
+
+		serviceConfig.setMockStatusCode(context.integerValue("DescribeDeployedApiResponse.ServiceConfig.MockStatusCode"));
+
+		List<MockHeader> mockHeaders=new ArrayList<MockHeader>();
+		for(int i=0;i<context.lengthValue("DescribeDeployedApiResponse.ServiceConfig.MockHeaders.Length");i++){
+			MockHeader mockHeader=new MockHeader();
+			mockHeader.setHeaderName(context.stringValue("DescribeDeployedApiResponse.ServiceConfig.MockHeaders["+ i +"].HeaderName"));
+			mockHeader.setHeaderValue(context.stringValue("DescribeDeployedApiResponse.ServiceConfig.MockHeaders["+ i +"].HeaderValue"));
+			mockHeaders.add(mockHeader);
+		}
+		serviceConfig.setMockHeaders(mockHeaders);
+
 		describeDeployedApiResponse.setServiceConfig(serviceConfig);
 		
 		OpenIdConnectConfig openIdConnectConfig = new OpenIdConnectConfig();

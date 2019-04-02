@@ -23,7 +23,7 @@ import com.aliyuncs.RpcAcsRequest;
 public class BindAxbRequest extends RpcAcsRequest<BindAxbResponse> {
 	
 	public BindAxbRequest() {
-		super("Dyplsapi", "2017-05-25", "BindAxb");
+		super("Dyplsapi", "2017-05-25", "BindAxb", "dyplsapi");
 	}
 
 	private String phoneNoB;

@@ -55,6 +55,10 @@ public class DescribeApiHistoryResponse extends AcsResponse {
 
     private String                    authType;
 
+    private Boolean                   forceNonceCheck;
+
+    private Boolean                   disableInternet;
+
     private String                    resultType;
 
     private String                    resultSample;
@@ -64,6 +68,8 @@ public class DescribeApiHistoryResponse extends AcsResponse {
     private String                    deployedTime;
 
     private String                    allowSignatureMethod;
+
+    private String                    ResultBodyModel;
 
     private List<ErrorCodeSample>     errorCodeSamples;
 
@@ -237,6 +243,22 @@ public class DescribeApiHistoryResponse extends AcsResponse {
         this.requestParameters = requestParameters;
     }
 
+    public Boolean getForceNonceCheck() {
+        return forceNonceCheck;
+    }
+
+    public void setForceNonceCheck(Boolean forceNonceCheck) {
+        this.forceNonceCheck = forceNonceCheck;
+    }
+
+    public Boolean getDisableInternet() {
+        return disableInternet;
+    }
+
+    public void setDisableInternet(Boolean disableInternet) {
+        this.disableInternet = disableInternet;
+    }
+
     public List<ServiceParameter> getServiceParameters() {
         return this.serviceParameters;
     }
@@ -299,6 +321,14 @@ public class DescribeApiHistoryResponse extends AcsResponse {
 
     public void setOpenIdConnectConfig(OpenIdConnectConfig openIdConnectConfig) {
         this.openIdConnectConfig = openIdConnectConfig;
+    }
+
+    public String getResultBodyModel() {
+        return ResultBodyModel;
+    }
+
+    public void setResultBodyModel(String resultBodyModel) {
+        ResultBodyModel = resultBodyModel;
     }
 
     @Override

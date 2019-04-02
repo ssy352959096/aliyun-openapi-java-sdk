@@ -1,3 +1,19 @@
+2019-03-28 Version: 1.13.0
+1, Add logo detect.
+
+2019-03-11 Version: 1.12.0
+1, Add face grouping feature .
+2, Add head pose and face quality.
+
+
+2019-01-29 Version: 1.11.0
+1, Make obsolete api offline.
+2, Fix some bug.
+
+
+2019-01-11 Version: 1.10.4
+1, CreateOfficeConversionTask, ConvertOfficeFormat support Hidecomments
+
 2019-01-09 Version: 1.10.3
 1, Add user role support.
 

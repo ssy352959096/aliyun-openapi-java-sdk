@@ -24,12 +24,25 @@ import java.util.List;
 public class BatchCheckDeviceNamesRequest extends RpcAcsRequest<BatchCheckDeviceNamesResponse> {
 	
 	public BatchCheckDeviceNamesRequest() {
-		super("Iot", "2018-01-20", "BatchCheckDeviceNames");
+		super("Iot", "2018-01-20", "BatchCheckDeviceNames", "iot");
 	}
+
+	private String iotInstanceId;
 
 	private List<String> deviceNames;
 
 	private String productKey;
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
+		}
+	}
 
 	public List<String> getDeviceNames() {
 		return this.deviceNames;

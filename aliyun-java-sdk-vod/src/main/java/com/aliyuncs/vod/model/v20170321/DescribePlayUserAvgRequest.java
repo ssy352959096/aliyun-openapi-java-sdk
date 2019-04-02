@@ -26,22 +26,11 @@ public class DescribePlayUserAvgRequest extends RpcAcsRequest<DescribePlayUserAv
 		super("vod", "2017-03-21", "DescribePlayUserAvg", "vod");
 	}
 
-	private String endTime;
-
 	private String startTime;
 
+	private String endTime;
+
 	private Long ownerId;
-
-	public String getEndTime() {
-		return this.endTime;
-	}
-
-	public void setEndTime(String endTime) {
-		this.endTime = endTime;
-		if(endTime != null){
-			putQueryParameter("EndTime", endTime);
-		}
-	}
 
 	public String getStartTime() {
 		return this.startTime;
@@ -51,6 +40,17 @@ public class DescribePlayUserAvgRequest extends RpcAcsRequest<DescribePlayUserAv
 		this.startTime = startTime;
 		if(startTime != null){
 			putQueryParameter("StartTime", startTime);
+		}
+	}
+
+	public String getEndTime() {
+		return this.endTime;
+	}
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
+		if(endTime != null){
+			putQueryParameter("EndTime", endTime);
 		}
 	}
 

@@ -15,7 +15,6 @@
 package com.aliyuncs.edas.model.v20170801;
 
 import java.util.List;
-import java.util.Map;
 import com.aliyuncs.AcsResponse;
 import com.aliyuncs.edas.transform.v20170801.ListUserDefineRegionResponseUnmarshaller;
 import com.aliyuncs.transform.UnmarshallerContext;
@@ -80,9 +79,7 @@ public class ListUserDefineRegionResponse extends AcsResponse {
 
 		private String belongRegion;
 
-		private Boolean hybridCloudEnable;
-
-		private String vpcId;
+		private Boolean debugEnable;
 
 		public Long getId() {
 			return this.id;
@@ -100,10 +97,26 @@ public class ListUserDefineRegionResponse extends AcsResponse {
 			this.userId = userId;
 		}
 
+		public String getBizRegionId() {
+			return this.regionId;
+		}
+
+		public void setBizRegionId(String regionId) {
+			this.regionId = regionId;
+		}
+
+		/**
+		 * @deprecated use getBizRegionId instead of this.
+		 */
+		@Deprecated
 		public String getRegionId() {
 			return this.regionId;
 		}
 
+		/**
+		 * @deprecated use setBizRegionId instead of this.
+		 */
+		@Deprecated
 		public void setRegionId(String regionId) {
 			this.regionId = regionId;
 		}
@@ -132,20 +145,12 @@ public class ListUserDefineRegionResponse extends AcsResponse {
 			this.belongRegion = belongRegion;
 		}
 
-		public Boolean getHybridCloudEnable() {
-			return this.hybridCloudEnable;
+		public Boolean getDebugEnable() {
+			return this.debugEnable;
 		}
 
-		public void setHybridCloudEnable(Boolean hybridCloudEnable) {
-			this.hybridCloudEnable = hybridCloudEnable;
-		}
-
-		public String getVpcId() {
-			return this.vpcId;
-		}
-
-		public void setVpcId(String vpcId) {
-			this.vpcId = vpcId;
+		public void setDebugEnable(Boolean debugEnable) {
+			this.debugEnable = debugEnable;
 		}
 	}
 

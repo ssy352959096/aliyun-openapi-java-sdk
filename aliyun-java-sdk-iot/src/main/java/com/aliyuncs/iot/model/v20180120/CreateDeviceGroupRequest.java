@@ -23,10 +23,12 @@ import com.aliyuncs.RpcAcsRequest;
 public class CreateDeviceGroupRequest extends RpcAcsRequest<CreateDeviceGroupResponse> {
 	
 	public CreateDeviceGroupRequest() {
-		super("Iot", "2018-01-20", "CreateDeviceGroup");
+		super("Iot", "2018-01-20", "CreateDeviceGroup", "iot");
 	}
 
 	private String groupDesc;
+
+	private String iotInstanceId;
 
 	private String superGroupId;
 
@@ -40,6 +42,17 @@ public class CreateDeviceGroupRequest extends RpcAcsRequest<CreateDeviceGroupRes
 		this.groupDesc = groupDesc;
 		if(groupDesc != null){
 			putQueryParameter("GroupDesc", groupDesc);
+		}
+	}
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
 		}
 	}
 

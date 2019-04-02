@@ -15,7 +15,6 @@
 package com.aliyuncs.ecs.model.v20140526;
 
 import java.util.List;
-import java.util.Map;
 import com.aliyuncs.AcsResponse;
 import com.aliyuncs.ecs.transform.v20140526.DescribeResourcesModificationResponseUnmarshaller;
 import com.aliyuncs.transform.UnmarshallerContext;
@@ -54,12 +53,30 @@ public class DescribeResourcesModificationResponse extends AcsResponse {
 
 		private String status;
 
+		private String statusCategory;
+
 		private List<AvailableResource> availableResources;
 
+		public String getBizRegionId() {
+			return this.regionId;
+		}
+
+		public void setBizRegionId(String regionId) {
+			this.regionId = regionId;
+		}
+
+		/**
+		 * @deprecated use getBizRegionId instead of this.
+		 */
+		@Deprecated
 		public String getRegionId() {
 			return this.regionId;
 		}
 
+		/**
+		 * @deprecated use setBizRegionId instead of this.
+		 */
+		@Deprecated
 		public void setRegionId(String regionId) {
 			this.regionId = regionId;
 		}
@@ -78,6 +95,14 @@ public class DescribeResourcesModificationResponse extends AcsResponse {
 
 		public void setStatus(String status) {
 			this.status = status;
+		}
+
+		public String getStatusCategory() {
+			return this.statusCategory;
+		}
+
+		public void setStatusCategory(String statusCategory) {
+			this.statusCategory = statusCategory;
 		}
 
 		public List<AvailableResource> getAvailableResources() {
@@ -116,6 +141,8 @@ public class DescribeResourcesModificationResponse extends AcsResponse {
 
 				private String status;
 
+				private String statusCategory;
+
 				private Integer min;
 
 				private Integer max;
@@ -136,6 +163,14 @@ public class DescribeResourcesModificationResponse extends AcsResponse {
 
 				public void setStatus(String status) {
 					this.status = status;
+				}
+
+				public String getStatusCategory() {
+					return this.statusCategory;
+				}
+
+				public void setStatusCategory(String statusCategory) {
+					this.statusCategory = statusCategory;
 				}
 
 				public Integer getMin() {

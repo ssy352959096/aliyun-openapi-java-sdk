@@ -15,7 +15,6 @@
 package com.aliyuncs.vod.model.v20170321;
 
 import java.util.List;
-import java.util.Map;
 import com.aliyuncs.AcsResponse;
 import com.aliyuncs.vod.transform.v20170321.GetMezzanineInfoResponseUnmarshaller;
 import com.aliyuncs.transform.UnmarshallerContext;
@@ -415,6 +414,8 @@ public class GetMezzanineInfoResponse extends AcsResponse {
 
 			private String lang;
 
+			private String rotate;
+
 			public String getIndex() {
 				return this.index;
 			}
@@ -581,6 +582,14 @@ public class GetMezzanineInfoResponse extends AcsResponse {
 
 			public void setLang(String lang) {
 				this.lang = lang;
+			}
+
+			public String getRotate() {
+				return this.rotate;
+			}
+
+			public void setRotate(String rotate) {
+				this.rotate = rotate;
 			}
 		}
 	}

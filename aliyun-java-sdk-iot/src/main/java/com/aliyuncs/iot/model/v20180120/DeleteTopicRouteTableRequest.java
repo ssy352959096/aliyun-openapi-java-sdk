@@ -24,10 +24,12 @@ import java.util.List;
 public class DeleteTopicRouteTableRequest extends RpcAcsRequest<DeleteTopicRouteTableResponse> {
 	
 	public DeleteTopicRouteTableRequest() {
-		super("Iot", "2018-01-20", "DeleteTopicRouteTable");
+		super("Iot", "2018-01-20", "DeleteTopicRouteTable", "iot");
 	}
 
 	private List<String> dstTopics;
+
+	private String iotInstanceId;
 
 	private String srcTopic;
 
@@ -42,6 +44,17 @@ public class DeleteTopicRouteTableRequest extends RpcAcsRequest<DeleteTopicRoute
 				putQueryParameter("DstTopic." + (i + 1) , dstTopics.get(i));
 			}
 		}	
+	}
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
+		}
 	}
 
 	public String getSrcTopic() {

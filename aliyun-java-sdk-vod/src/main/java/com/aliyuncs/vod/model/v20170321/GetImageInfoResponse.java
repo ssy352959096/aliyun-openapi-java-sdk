@@ -14,7 +14,6 @@
 
 package com.aliyuncs.vod.model.v20170321;
 
-import java.util.Map;
 import com.aliyuncs.AcsResponse;
 import com.aliyuncs.vod.transform.v20170321.GetImageInfoResponseUnmarshaller;
 import com.aliyuncs.transform.UnmarshallerContext;
@@ -66,6 +65,8 @@ public class GetImageInfoResponse extends AcsResponse {
 		private String description;
 
 		private String storageLocation;
+
+		private String status;
 
 		private Mezzanine mezzanine;
 
@@ -147,6 +148,14 @@ public class GetImageInfoResponse extends AcsResponse {
 
 		public void setStorageLocation(String storageLocation) {
 			this.storageLocation = storageLocation;
+		}
+
+		public String getStatus() {
+			return this.status;
+		}
+
+		public void setStatus(String status) {
+			this.status = status;
 		}
 
 		public Mezzanine getMezzanine() {

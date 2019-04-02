@@ -19,7 +19,6 @@ import java.util.List;
 
 import com.aliyuncs.iot.model.v20180120.QueryPageByApplyIdResponse;
 import com.aliyuncs.iot.model.v20180120.QueryPageByApplyIdResponse.ApplyDeviceInfo;
-import java.util.Map;
 import com.aliyuncs.transform.UnmarshallerContext;
 
 
@@ -42,6 +41,7 @@ public class QueryPageByApplyIdResponseUnmarshaller {
 			applyDeviceInfo.setDeviceId(context.stringValue("QueryPageByApplyIdResponse.ApplyDeviceList["+ i +"].DeviceId"));
 			applyDeviceInfo.setDeviceName(context.stringValue("QueryPageByApplyIdResponse.ApplyDeviceList["+ i +"].DeviceName"));
 			applyDeviceInfo.setDeviceSecret(context.stringValue("QueryPageByApplyIdResponse.ApplyDeviceList["+ i +"].DeviceSecret"));
+			applyDeviceInfo.setIotId(context.stringValue("QueryPageByApplyIdResponse.ApplyDeviceList["+ i +"].IotId"));
 
 			applyDeviceList.add(applyDeviceInfo);
 		}

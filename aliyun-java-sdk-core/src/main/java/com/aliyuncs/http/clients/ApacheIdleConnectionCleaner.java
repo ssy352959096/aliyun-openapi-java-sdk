@@ -1,19 +1,3 @@
-/*
- * Copyright 2017 Alibaba Group
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.aliyuncs.http.clients;
 
 import org.apache.commons.logging.Log;
@@ -28,7 +12,17 @@ import java.util.concurrent.TimeUnit;
 public class ApacheIdleConnectionCleaner extends Thread {
 
     private static final Log LOG = LogFactory.getLog(ApacheIdleConnectionCleaner.class);
-    private static final int PERIOD_SEC = 60;
+
+    public static int getPeriodSec() {
+        return periodSec;
+    }
+
+    public static void setPeriodSec(int periodSec) {
+        ApacheIdleConnectionCleaner.periodSec = periodSec;
+    }
+
+    private static final int DEFAULT_PERIOD_SEC = 60;
+    private static int periodSec = DEFAULT_PERIOD_SEC;
     private static final Map<HttpClientConnectionManager, Long> CONNMGRMAP = new ConcurrentHashMap<HttpClientConnectionManager, Long>();
     private static volatile ApacheIdleConnectionCleaner instance;
     private volatile boolean isShuttingDown;
@@ -74,7 +68,7 @@ public class ApacheIdleConnectionCleaner extends Thread {
                 return;
             }
             try {
-                Thread.sleep(PERIOD_SEC * 1000);
+                Thread.sleep(periodSec * 1000);
 
                 for (Entry<HttpClientConnectionManager, Long> entry : CONNMGRMAP.entrySet()) {
                     try {

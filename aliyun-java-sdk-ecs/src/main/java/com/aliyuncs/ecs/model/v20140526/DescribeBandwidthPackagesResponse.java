@@ -15,7 +15,6 @@
 package com.aliyuncs.ecs.model.v20140526;
 
 import java.util.List;
-import java.util.Map;
 import com.aliyuncs.AcsResponse;
 import com.aliyuncs.ecs.transform.v20140526.DescribeBandwidthPackagesResponseUnmarshaller;
 import com.aliyuncs.transform.UnmarshallerContext;
@@ -100,6 +99,8 @@ public class DescribeBandwidthPackagesResponse extends AcsResponse {
 
 		private String ipCount;
 
+		private String iSP;
+
 		private String creationTime;
 
 		private String status;
@@ -114,10 +115,26 @@ public class DescribeBandwidthPackagesResponse extends AcsResponse {
 			this.bandwidthPackageId = bandwidthPackageId;
 		}
 
+		public String getBizRegionId() {
+			return this.regionId;
+		}
+
+		public void setBizRegionId(String regionId) {
+			this.regionId = regionId;
+		}
+
+		/**
+		 * @deprecated use getBizRegionId instead of this.
+		 */
+		@Deprecated
 		public String getRegionId() {
 			return this.regionId;
 		}
 
+		/**
+		 * @deprecated use setBizRegionId instead of this.
+		 */
+		@Deprecated
 		public void setRegionId(String regionId) {
 			this.regionId = regionId;
 		}
@@ -192,6 +209,14 @@ public class DescribeBandwidthPackagesResponse extends AcsResponse {
 
 		public void setIpCount(String ipCount) {
 			this.ipCount = ipCount;
+		}
+
+		public String getISP() {
+			return this.iSP;
+		}
+
+		public void setISP(String iSP) {
+			this.iSP = iSP;
 		}
 
 		public String getCreationTime() {

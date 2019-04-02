@@ -21,7 +21,6 @@ import com.aliyuncs.bssopenapi.model.v20171214.QueryPriceListResponse;
 import com.aliyuncs.bssopenapi.model.v20171214.QueryPriceListResponse.Data;
 import com.aliyuncs.bssopenapi.model.v20171214.QueryPriceListResponse.Data.Module;
 import com.aliyuncs.bssopenapi.model.v20171214.QueryPriceListResponse.Data.Module.TierPrice;
-import java.util.Map;
 import com.aliyuncs.transform.UnmarshallerContext;
 
 

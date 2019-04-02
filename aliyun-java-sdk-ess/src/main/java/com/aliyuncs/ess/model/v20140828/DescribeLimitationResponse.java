@@ -14,7 +14,6 @@
 
 package com.aliyuncs.ess.model.v20140828;
 
-import java.util.Map;
 import com.aliyuncs.AcsResponse;
 import com.aliyuncs.ess.transform.v20140828.DescribeLimitationResponseUnmarshaller;
 import com.aliyuncs.transform.UnmarshallerContext;
@@ -42,6 +41,12 @@ public class DescribeLimitationResponse extends AcsResponse {
 	private Integer maxNumberOfMinSize;
 
 	private Integer maxNumberOfMaxSize;
+
+	private Integer maxNumberOfVServerGroups;
+
+	private Integer maxNumberOfLifecycleHooks;
+
+	private Integer maxNumberOfNotificationConfigurations;
 
 	public Integer getMaxNumberOfScalingGroups() {
 		return this.maxNumberOfScalingGroups;
@@ -113,6 +118,30 @@ public class DescribeLimitationResponse extends AcsResponse {
 
 	public void setMaxNumberOfMaxSize(Integer maxNumberOfMaxSize) {
 		this.maxNumberOfMaxSize = maxNumberOfMaxSize;
+	}
+
+	public Integer getMaxNumberOfVServerGroups() {
+		return this.maxNumberOfVServerGroups;
+	}
+
+	public void setMaxNumberOfVServerGroups(Integer maxNumberOfVServerGroups) {
+		this.maxNumberOfVServerGroups = maxNumberOfVServerGroups;
+	}
+
+	public Integer getMaxNumberOfLifecycleHooks() {
+		return this.maxNumberOfLifecycleHooks;
+	}
+
+	public void setMaxNumberOfLifecycleHooks(Integer maxNumberOfLifecycleHooks) {
+		this.maxNumberOfLifecycleHooks = maxNumberOfLifecycleHooks;
+	}
+
+	public Integer getMaxNumberOfNotificationConfigurations() {
+		return this.maxNumberOfNotificationConfigurations;
+	}
+
+	public void setMaxNumberOfNotificationConfigurations(Integer maxNumberOfNotificationConfigurations) {
+		this.maxNumberOfNotificationConfigurations = maxNumberOfNotificationConfigurations;
 	}
 
 	@Override

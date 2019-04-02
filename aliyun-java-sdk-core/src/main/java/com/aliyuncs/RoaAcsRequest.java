@@ -23,12 +23,6 @@ public abstract class RoaAcsRequest<T extends AcsResponse> extends AcsRequest<T>
         initialize();
     }
 
-    public RoaAcsRequest(String product, String version) {
-        super(product);
-        this.setSysVersion(version);
-        initialize();
-    }
-
     public RoaAcsRequest(String product, String version, String action) {
         super(product);
         this.setSysVersion(version);
@@ -77,7 +71,6 @@ public abstract class RoaAcsRequest<T extends AcsResponse> extends AcsRequest<T>
         this.putHeaderParameter("x-acs-version", version);
     }
 
-    @Deprecated
     public Map<String, String> getPathParameters() {
         return Collections.unmodifiableMap(pathParameters);
     }
@@ -112,11 +105,17 @@ public abstract class RoaAcsRequest<T extends AcsResponse> extends AcsRequest<T>
         return url;
     }
 
+    /**
+     * @Deprecated : Use getSysUriPattern instead of this
+     */
     @Deprecated
     public String getUriPattern() {
         return uriPattern;
     }
 
+    /**
+     * @Deprecated : Use setSysUriPattern instead of this
+     */
     @Deprecated
     public void setUriPattern(String uriPattern) {
         this.uriPattern = uriPattern;
@@ -152,6 +151,7 @@ public abstract class RoaAcsRequest<T extends AcsResponse> extends AcsRequest<T>
         if (null != signer && null != credentials) {
             String accessKeyId = credentials.getAccessKeyId();
             imutableMap = this.composer.refreshSignParameters(this.getSysHeaders(), signer, accessKeyId, format);
+            imutableMap.put("RegionId", this.getSysRegionId());
             if (credentials instanceof BasicSessionCredentials) {
                 String sessionToken = ((BasicSessionCredentials) credentials).getSessionToken();
                 if (null != sessionToken) {
@@ -169,7 +169,7 @@ public abstract class RoaAcsRequest<T extends AcsResponse> extends AcsRequest<T>
             String signature = signer.signString(strToSign, credentials);
             imutableMap.put("Authorization", "acs " + accessKeyId + ":" + signature);
         }
-        this.setSysUrl(this.composeUrl(domain.getDomianName(), this.getSysQueryParameters()));
+        this.setSysUrl(this.composeUrl(domain.getDomainName(), this.getSysQueryParameters()));
         this.headers = imutableMap;
         return this;
     }

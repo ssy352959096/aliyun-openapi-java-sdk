@@ -23,10 +23,23 @@ import com.aliyuncs.RpcAcsRequest;
 public class QueryTopicReverseRouteTableRequest extends RpcAcsRequest<QueryTopicReverseRouteTableResponse> {
 	
 	public QueryTopicReverseRouteTableRequest() {
-		super("Iot", "2018-01-20", "QueryTopicReverseRouteTable");
+		super("Iot", "2018-01-20", "QueryTopicReverseRouteTable", "iot");
 	}
 
+	private String iotInstanceId;
+
 	private String topic;
+
+	public String getIotInstanceId() {
+		return this.iotInstanceId;
+	}
+
+	public void setIotInstanceId(String iotInstanceId) {
+		this.iotInstanceId = iotInstanceId;
+		if(iotInstanceId != null){
+			putQueryParameter("IotInstanceId", iotInstanceId);
+		}
+	}
 
 	public String getTopic() {
 		return this.topic;

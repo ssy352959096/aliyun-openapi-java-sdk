@@ -15,7 +15,6 @@
 package com.aliyuncs.iot.model.v20180120;
 
 import java.util.List;
-import java.util.Map;
 import com.aliyuncs.AcsResponse;
 import com.aliyuncs.iot.transform.v20180120.BatchGetDeviceStateResponseUnmarshaller;
 import com.aliyuncs.transform.UnmarshallerContext;
@@ -88,6 +87,8 @@ public class BatchGetDeviceStateResponse extends AcsResponse {
 
 		private String lastOnlineTime;
 
+		private String iotId;
+
 		public String getDeviceId() {
 			return this.deviceId;
 		}
@@ -126,6 +127,14 @@ public class BatchGetDeviceStateResponse extends AcsResponse {
 
 		public void setLastOnlineTime(String lastOnlineTime) {
 			this.lastOnlineTime = lastOnlineTime;
+		}
+
+		public String getIotId() {
+			return this.iotId;
+		}
+
+		public void setIotId(String iotId) {
+			this.iotId = iotId;
 		}
 	}
 
